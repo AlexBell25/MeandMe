@@ -2,9 +2,9 @@
 
 body {
   margin: 0;
-  font-family: sans-serif;
+  font-family: 'Quicksand', sans-serif;
   background: #020024;
-  background: linear-gradient(163deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
+  background: linear-gradient(163deg, rgb(39, 188, 166) 0%, rgb(101, 215, 223) 35%, rgb(255, 255, 255) 100%);
   color: #ffffff;
   min-height: 100vh;
   height: 90vh;
@@ -21,7 +21,7 @@ body {
   padding: 20px;
   width: 100%;
   max-width: 450px;
-  text-align: left;
+  text-align: center;
   align-items : center;
 }
 .signup-form-container {
@@ -87,25 +87,25 @@ button[type="submit"] {
   padding: 12px;
   border: none;
   border-radius: 12px;
-  background: white;
+  background: linear-gradient(90deg, #56f202,#f40717);
   color: #1b1b1b;
   font-weight: bold;
+  justify-content: center;
   font-size: 1rem;
   cursor: pointer;
   transition: opacity 0.3s ease;
-
-  /* Center the button */
-  align-self: center;
-  width: 60%; /* optional: set a consistent width */
-  text-align: center;
 }
-
 
 button[type="submit"]:hover {
   opacity: 0.85;
   background: #000000;
 }
 
+.error {
+  margin-top: 10px;
+  color: #ff6b6b;
+  font-weight: bold;
+}
 
 .footer-text {
   margin-top: 20px;
