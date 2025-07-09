@@ -89,23 +89,23 @@ button[type="submit"] {
   border-radius: 12px;
   background: white;
   color: #1b1b1b;
-  font-weight: bold;;
+  font-weight: bold;
   font-size: 1rem;
   cursor: pointer;
   transition: opacity 0.3s ease;
+
+  /* Center the button */
+  align-self: center;
+  width: 60%; /* optional: set a consistent width */
+  text-align: center;
 }
+
 
 button[type="submit"]:hover {
   opacity: 0.85;
   background: #000000;
 }
 
-.error {
-  justify-content: center
-  margin-top: 10px;
-  color: #ff6b6b;
-  font-weight: bold;
-}
 
 .footer-text {
   margin-top: 20px;
