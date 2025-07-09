@@ -18,6 +18,8 @@
     <div class="signup-form-container">
       <h2>Me&Me</h2>
       <form onsubmit="return handleLogin(event)">
+        <fieldset>
+          <legend></i> SIGN IN</legend>
 
           <label for="user"></i> Display name: </label>
           <input type="text" id="user" name="user" maxlength="10" required />
@@ -27,6 +29,7 @@
 
           <button type="submit">Sign In</button>
           <div class="error" id="errorMessage" style="color: red; margin-top: 10px;"></div>
+        </fieldset>
       </form>
       <p style="margin-top: 1rem; color: #ccc;">Don't have an account? <a href="signup.html" style="color: #6cf;">Sign Up</a></p>
     </div>
@@ -40,7 +43,7 @@
       const username = document.getElementById("user").value.trim();
 
       if (!username) {
-        document.getElementById("errorMessage").textContent = "Please enter a username.";
+        document.getElementById("errorMessage").textContent = "Please enter a username!";
         return false;
       }
 
