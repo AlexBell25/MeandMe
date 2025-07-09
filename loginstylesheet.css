@@ -22,26 +22,13 @@ body {
   width: 100%;
   max-width: 450px;
   text-align: center;
+  align-items : center;
 }
 .signup-form-container {
   flex: 1;
   padding: 40px;
   min-width: 300px;
   box-sizing: border-box;
-}
-
-fieldset {
-  border: 2px solid #8e2de2;
-  padding: 30px;
-  border-radius: 8px;
-  background: #f4f2ff;
-}
-
-legend {
-  font-family: 'Fredoka', sans-serif;
-  font-size: 1.2rem;
-  color: #6a11cb;
-  padding: 0 10px;
 }
 
 
@@ -86,7 +73,7 @@ input[type="password"] {
   border-radius: 15px;
   background:#e0e0e0;
   color: black;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   font-size: 1rem;
   outline: none;
   backdrop-filter: blur(4px);
@@ -103,6 +90,7 @@ button[type="submit"] {
   background: linear-gradient(90deg, #56f202,#f40717);
   color: #1b1b1b;
   font-weight: bold;
+  justify-content: center;
   font-size: 1rem;
   cursor: pointer;
   transition: opacity 0.3s ease;
@@ -110,6 +98,7 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
   opacity: 0.85;
+  background: #000000;
 }
 
 .error {
