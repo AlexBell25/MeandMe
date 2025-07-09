@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GameStop</title>
+
+  <link rel="stylesheet" href="loginstylesheet.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&family=Quicksand:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
+  <style>
+    /* Minimal styling for nav */
+    nav {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      padding: 15px 30px;
+      background-color: #222;
+    }
+
+    nav button {
+      background-color: #444;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 14px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Sign-up Page -->
+  <div class="signup-page">
+    <div class="signup-form-container">
+      <h2>AMEA Gaming</h2>
+      <form onsubmit="return handleRegistration(event)">
+        <fieldset>
+          <legend><i class="fas fa-gamepad"></i> SIGN UP</legend>
+
+          <label for="user"><i class="fas fa-user"></i> Username:</label>
+          <input type="text" id="user" name="user" maxlength="10" required />
+
+          <label for="email"><i class="fas fa-envelope"></i> Email:</label>
+          <input type="email" id="email" name="email" required />
+
+          <label for="password"><i class="fas fa-lock"></i> Password:</label>
+          <input type="password" id="password" name="password" required />
+
+          <label for="confirmPassword"><i class="fas fa-check-double"></i> Confirm Password:</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" required />
+
+          <button type="submit">Register</button>
+          <div class="error" id="errorMessage" style="color: red; margin-top: 10px;"></div>
+        </fieldset>
+      </form>
+    </div>
+
+    <div class="signup-image">
+      <img src="Images/Controller.png" alt="Game Controller" />
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    function validatePasswords() {
+      const pass = document.getElementById("password").value;
+      const confirm = document.getElementById("confirmPassword").value;
+      const errorDiv = document.getElementById("errorMessage");
+
+      if (pass !== confirm) {
+        errorDiv.textContent = "Passwords do not match.";
+        return false;
+      }
+
+      errorDiv.textContent = "";
+      return true;
+    }
+
+function handleRegistration(event) {
+  event.preventDefault();
+
+  if (!validatePasswords()) return false;
+
+  const username = document.getElementById("user").value;
+  localStorage.setItem("loggedInUser", username);
+
+  // Redirect to gameSelector.html
+  window.location.href = "./gameSelector.html";
+  return false;
+}
+
+
+    function goToLogin() {
+      window.location.href = "login.html"; // Create this page if needed
+    }
+
+    function goToSignup() {
+      window.location.href = "signup.html"; // Optional
+    }
+
+    function goToProfile() {
+      window.location.href = "profile.html"; // Create a profile page if needed
+    }
+
+    function logout() {
+      localStorage.removeItem("loggedInUser");
+      location.reload();
+    }
+
+    function updateNavbar() {
+      const user = localStorage.getItem("loggedInUser");
+      const nav = document.getElementById("navbar");
+
+      if (user) {
+        nav.innerHTML = `
+          <button onclick="goToProfile()">Profile</button>
+          <button onclick="logout()">Logout</button>
+        `;
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", updateNavbar);
+    function goBack(url) {
+    window.location.href = url;
+}
+  </script>
+  <button onclick="goBack('index.html')" style="position:absolute; top:10px; left:10px;">🔙 Back</button>
+</body>
+</html>
