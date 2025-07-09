@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Me&Me - Sign In</title>
+
+  <link rel="stylesheet" href="loginstylesheet.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&family=Quicksand:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
+</head>
+
+<body>
+
+  <!-- Sign-in Page -->
+  <div class="signup-page">
+    <div class="signup-form-container">
+      <h2>Me&Me</h2>
+      <form onsubmit="return handleLogin(event)">
+
+          <label for="user"></i> Display name: </label>
+          <input type="text" id="user" name="user" maxlength="10" required />
+
+          <label for="password"></i> Password:</label>
+          <input type="password" id="password" name="password" required />
+
+          <button type="submit">Mentor Sign In</button>
+          <div class="error" id="errorMessage" style="color: red; margin-top: 10px;"></div>
+      </form>
+      <p style="margin-top: 1rem; color: #ccc;">Don't have an account? <a href="signup mentor.html" style="color: #6cf;">Sign Up</a></p>
+    </div>
+
+  </div>
+
+  <script>
+    function handleLogin(event) {
+      event.preventDefault();
+
+      const username = document.getElementById("user").value.trim();
+
+      if (!username) {
+        document.getElementById("errorMessage").textContent = "Please enter a username.";
+        return false;
+      }
+
+      // Simply set loggedInUser and redirect, no validation
+      localStorage.setItem("loggedInUser", username);
+      window.location.href = "./gameSelector.html";
+      return false;
+    }
+    function goBack(url) {
+    window.location.href = url;
+}
+  </script>
+<button onclick="goBack('index.html')" style="position:absolute; top:10px; left:10px;">🔙 Back</button>
+</body>
+</html>
