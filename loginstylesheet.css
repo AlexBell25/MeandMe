@@ -4,7 +4,7 @@ body {
   margin: 0;
   font-family: 'Quicksand', sans-serif;
   background: #020024;
-  background: linear-gradient(163deg, rgb(39, 188, 166) 0%, rgb(101, 215, 223) 35%, rgb(255, 255, 255) 100%);
+  background: linear-gradient(163deg, rgb(39, 188, 166) 0%, rgb(40, 184, 155) 35%, rgb(37, 211, 162) 100%);
   color: #ffffff;
   min-height: 100vh;
   height: 90vh;
