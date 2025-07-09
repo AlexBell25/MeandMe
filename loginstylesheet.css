@@ -21,7 +21,7 @@ body {
   padding: 20px;
   width: 100%;
   max-width: 450px;
-  text-align: center;
+  text-align: left;
   align-items : center;
 }
 .signup-form-container {
@@ -87,10 +87,9 @@ button[type="submit"] {
   padding: 12px;
   border: none;
   border-radius: 12px;
-  background: linear-gradient(90deg, #56f202,#f40717);
+  background: white;
   color: #1b1b1b;
-  font-weight: bold;
-  justify-content: center;
+  font-weight: bold;;
   font-size: 1rem;
   cursor: pointer;
   transition: opacity 0.3s ease;
@@ -102,6 +101,7 @@ button[type="submit"]:hover {
 }
 
 .error {
+  justify-content: center
   margin-top: 10px;
   color: #ff6b6b;
   font-weight: bold;
