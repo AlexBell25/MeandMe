@@ -87,7 +87,7 @@ button[type="submit"] {
   padding: 12px;
   border: none;
   border-radius: 12px;
-  background: #b607fb;
+  background: #82cfb7;
   color: #1b1b1b;
   font-weight: bold;
   justify-content: center;
@@ -101,7 +101,7 @@ button[type="submit"] {
 button[type="submit"]:hover {
   opacity: 0.85;
   transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(212, 0, 255, 0.5);
+  box-shadow: 0 0 20px rgba(166, 243, 232, 0.5);
 }
 
 
