@@ -77,16 +77,15 @@
 
 <script>
   function goToProfile(type) {
-    // type = "mentor" or "user"
-    if(type === "mentor") {
-      window.location.href = "mentor-profile.html"; // change as needed
+    if (type === "mentor") {
+      window.location.href = "mentor-profile.html"; // Adjust path if needed
     } else {
       window.location.href = "profile.html";
     }
   }
 
   function logout(type) {
-    if(type === "mentor") {
+    if (type === "mentor") {
       localStorage.removeItem("loggedInMentor");
     } else {
       localStorage.removeItem("loggedInUser");
@@ -94,51 +93,50 @@
     location.reload();
   }
 
- function updateNavbar() {
-  const loggedInMentor = localStorage.getItem("loggedInMentor");
-  const loggedInUser = localStorage.getItem("loggedInUser");
-  const Selection = document.getElementById("Selection");
-  const mentorNav = document.getElementById("mentor-nav");
-  const userNav = document.getElementById("user-nav");
+  function updateNavbar() {
+    const loggedInMentor = localStorage.getItem("loggedInMentor");
+    const loggedInUser = localStorage.getItem("loggedInUser");
+    const Selection = document.getElementById("Selection");
+    const mentorNav = document.getElementById("mentor-nav");
+    const userNav = document.getElementById("user-nav");
 
-  mentorNav.innerHTML = "";
-  userNav.innerHTML = "";
+    mentorNav.innerHTML = "";
+    userNav.innerHTML = "";
+    Selection.innerHTML = "";
 
-  if (loggedInMentor) {
-    // Mentor is logged in - show ONLY mentor profile/logout
-    mentorNav.innerHTML = `
-      <a href="#" onclick="goToProfile('mentor'); return false;">Mentor Profile</a>
-      <a href="#" onclick="logout('mentor'); return false;">Logout</a>
-    `;
-    Selection.innerHTML=`
-    <a href="#">Calender</a> 
-    `;
-    // User nav empty
-  } else if (loggedInUser) {
-    // User is logged in - show ONLY user profile/logout
-    userNav.innerHTML = `
-      <a href="#" onclick="goToProfile('user'); return false;">User Profile</a>
-      <a href="#" onclick="logout('user'); return false;">Logout</a>
-    `;
-        Selection.innerHTML=`
-    <a href="#">Calender</a>`
-    // Mentor nav empty
-  } else {
-    // No one logged in - show all login/signup buttons for both
-    mentorNav.innerHTML = `
-      <a href="login mentor.html">Mentor Login</a>
-      <a href="signup mentor.html">Mentor Sign up</a>
-    `;
+    if (loggedInMentor && !loggedInUser) {
+      // Mentor is logged in (only)
+      mentorNav.innerHTML = `
+        <a href="#" onclick="goToProfile('mentor'); return false;">Mentor Profile</a>
+        <a href="#" onclick="logout('mentor'); return false;">Logout</a>
+      `;
+      Selection.innerHTML = `<a href="#">Calendar</a>`;
+    } else if (loggedInUser && !loggedInMentor) {
+      // User is logged in (only)
+      userNav.innerHTML = `
+        <a href="#" onclick="goToProfile('user'); return false;">User Profile</a>
+        <a href="#" onclick="logout('user'); return false;">Logout</a>
+      `;
+      Selection.innerHTML = `<a href="#">Calendar</a>`;
+    } else {
+      // Neither or both (prevent dual login)
+      localStorage.removeItem("loggedInMentor");
+      localStorage.removeItem("loggedInUser");
 
-    userNav.innerHTML = `
-      <a href="login.html">User Login</a>
-      <a href="signup.html">User Sign up</a>
-    `;
+      mentorNav.innerHTML = `
+        <a href="login mentor.html">Mentor Login</a>
+        <a href="signup mentor.html">Mentor Sign up</a>
+      `;
+      userNav.innerHTML = `
+        <a href="login.html">User Login</a>
+        <a href="signup.html">User Sign up</a>
+      `;
+    }
   }
-}
 
   document.addEventListener("DOMContentLoaded", updateNavbar);
 </script>
+
 
 </body>
 </html>

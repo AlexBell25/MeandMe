@@ -83,7 +83,7 @@ function handleRegistration(event) {
   if (!validatePasswords()) return false;
 
   const username = document.getElementById("user").value;
-  localStorage.setItem("loggedInUser", username);
+  localStorage.setItem("loggedInMentor", username);
 
   // Redirect to gameSelector.html
   window.location.href = "./index.html";
