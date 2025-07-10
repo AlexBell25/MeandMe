@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Messaging & Calling UI</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      background-color: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 100%;
+      height: 100vh;
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+      border-radius: 0;
+      border-left: 1px solid #ddd;
+      border-right: 1px solid #ddd;
+    }
+
+    .header {
+      background-color: #a0c4b8;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .profile {
+      display: flex;
+      align-items: center;
+    }
+
+    .profile img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .icons {
+      font-size: 1.2rem;
+    }
+
+    .icons i {
+      margin-left: 15px;
+      cursor: pointer;
+    }
+
+    .messages {
+      flex-grow: 1;
+      padding: 15px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .message {
+      padding: 10px 15px;
+      margin-bottom: 10px;
+      max-width: 70%;
+      border-radius: 10px;
+      word-wrap: break-word;
+    }
+
+    .sent {
+      align-self: flex-start;
+      background-color: #a0c4b8;
+      color: #000;
+    }
+
+    .received {
+      align-self: flex-end;
+      background-color: #e0e0e0;
+      color: #000;
+    }
+
+    .input-area {
+      display: flex;
+      padding: 15px;
+      background-color: #f9f9f9;
+      border-top: 1px solid #ccc;
+    }
+
+    .input-area input {
+      flex: 1;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 25px;
+      outline: none;
+    }
+
+    .input-area button {
+      margin-left: 10px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 25px;
+      background-color: #a0c4b8;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .app {
+        border: none;
+        border-radius: 0;
+      }
+
+      .profile img {
+        width: 38px;
+        height: 38px;
+      }
+
+      .input-area input {
+        padding: 10px;
+      }
+
+      .input-area button {
+        padding: 10px 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="header">
+      <div class="profile">
+        <img src="https://via.placeholder.com/45" alt="User" />
+        <strong>Contact Name</strong>
+      </div>
+      <div class="icons">
+        <i onclick="alert('Starting video call')" title="Video Call">📹</i>
+        <i onclick="alert('Starting voice call')" title="Voice Call">📞</i>
+      </div>
+    </div>
+
+    <div class="messages" id="messageList">
+      <div class="message sent">Hi there 👋</div>
+      <div class="message received">Hello! How can I assist?</div>
+    </div>
+
+    <div class="input-area">
+      <input type="text" id="messageInput" placeholder="Type your message..." />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    function sendMessage() {
+      const input = document.getElementById('messageInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const messageList = document.getElementById('messageList');
+      const newMsg = document.createElement('div');
+      newMsg.className = 'message sent';
+      newMsg.textContent = text;
+      messageList.appendChild(newMsg);
+
+      input.value = '';
+      messageList.scrollTop = messageList.scrollHeight;
+    }
+  </script>
+</body>
+</html>
+
