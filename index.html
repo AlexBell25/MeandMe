@@ -181,7 +181,7 @@
 <body>
   <!-- Header -->
   <div class="header">
-    <img src="https://via.placeholder.com/80" alt="Profile Icon" />
+    <img id="mainProfileImage" src="profile.png" alt="Profile Icon" />
     <h2>WELCOME USER!</h2>
   </div>
 
@@ -419,6 +419,20 @@
       updateTabs();
       selectStarTab(1);
     });
+document.addEventListener("DOMContentLoaded", () => {
+  updateTabs();
+  selectStarTab(1);
+
+  // Load saved profile picture from localStorage (user)
+  const savedImage = localStorage.getItem("userProfileImage");
+  const profileImg = document.getElementById("mainProfileImage");
+
+  if (savedImage && profileImg) {
+    profileImg.src = savedImage;
+  } else {
+    profileImg.src = "profile.png"; // fallback image
+  }
+});
 
   </script>
 </body>
