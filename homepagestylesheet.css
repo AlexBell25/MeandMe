@@ -1,0 +1,127 @@
+/* Base styles */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f7f7f7;
+}
+
+.container {
+  padding: 20px;
+}
+
+/* Header / Banner */
+.header {
+  background-color: #a5c4bb;
+  padding: 30px 20px;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+  color: #333;
+  text-align: center;
+}
+
+.header img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+/* Recommended Profiles Section */
+.recommended-section {
+  margin-top: 20px;
+}
+
+.recommended-title {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.recommended-profiles {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+
+.profile-card {
+  min-width: 100px;
+  height: 140px;
+  background-color: #b3ccc4;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+}
+
+.profile-card .close {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  font-size: 12px;
+  color: #555;
+  cursor: pointer;
+}
+
+/* Rectangular sections (e.g. upcoming events or other content boxes) */
+.rect-box {
+  background-color: #b3ccc4;
+  border-radius: 12px;
+  height: 80px;
+  margin-top: 10px;
+}
+
+/* Bottom Tab Bar */
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #e7ecea;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  border-top: 1px solid #ccc;
+  z-index: 1000;
+}
+
+.tab-bar .tab {
+  text-align: center;
+  font-size: 12px;
+  color: #333;
+}
+
+.tab-bar .tab i {
+  display: block;
+  font-size: 20px;
+  margin-bottom: 3px;
+}
+
+/* Mentors and Mentees Page */
+.mentors-mentees .mentee-card {
+  width: 120px;
+  height: 160px;
+  margin: 0 auto;
+  background-color: #b3ccc4;
+  border-radius: 12px;
+  text-align: center;
+  padding: 20px;
+}
+
+.mentee-card p {
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+.available-mentors {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.available-mentors .mentor-card {
+  height: 100px;
+  background-color: #8ba7a0;
+  border-radius: 10px;
+}
