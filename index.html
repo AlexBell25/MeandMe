@@ -117,7 +117,6 @@
       background-color: #f0f3f2;
       border-top: 1px solid #ccc;
       display: flex;
-      /* use flex-grow: 1 for each tab */
       justify-content: space-between;
       z-index: 1000;
       user-select: none;
@@ -186,36 +185,9 @@
     <h2>WELCOME USER!</h2>
   </div>
 
-  <!-- Content -->
-  <div class="content">
-    <!-- Recommended Profiles -->
-    <div class="section">
-      <div class="section-header">
-        <p>RECOMMENDED PROFILES BASED ON YOUR PROFESSION:</p>
-        <button class="close" onclick="removeProfiles()" aria-label="Close recommended profiles">× close</button>
-      </div>
-
-      <div class="profile-scroll" id="profileList">
-        <div class="profile-card">
-          <img src="https://via.placeholder.com/50" alt="User" />
-        </div>
-        <div class="profile-card">
-          <img src="https://via.placeholder.com/50" alt="User" />
-        </div>
-        <div class="profile-card small">
-          <img src="https://via.placeholder.com/30" alt="User" />
-        </div>
-      </div>
-    </div>
-
-    <!-- Rectangular Content Boxes -->
-    <div class="rect-box"></div>
-    <div class="rect-box"></div>
-  </div>
-
   <!-- Combined full-width bottom nav bar with tabs -->
   <div class="bottom-nav" role="tablist" aria-label="Main navigation tabs">
-    <!-- Mentor Tabs -->
+    <!-- Mentor Tab -->
     <div
       id="mentorTab"
       class="nav-tab mentor-tab"
@@ -230,27 +202,27 @@
 
     <!-- Star tabs -->
     <div class="nav-tab active" role="tab" tabindex="0" aria-selected="true" data-tab="1" onclick="selectStarTab(1)">
-      <i class="fas fa-star"></i>
-      <span>Tab 1</span>
+      <i class="fas fa-comment"></i>
+      <span>Messages</span>
     </div>
     <div class="nav-tab" role="tab" tabindex="-1" aria-selected="false" data-tab="2" onclick="selectStarTab(2)">
-      <i class="fas fa-star"></i>
-      <span>Tab 2</span>
+      <i class="fas fa-calendar"></i>
+      <span>Calendar</span>
     </div>
     <div class="nav-tab" role="tab" tabindex="-1" aria-selected="false" data-tab="3" onclick="selectStarTab(3)">
-      <i class="fas fa-star"></i>
-      <span>Tab 3</span>
+      <i class="fas fa-user-circle"></i>
+      <span>Reccommendations</span>
     </div>
     <div class="nav-tab" role="tab" tabindex="-1" aria-selected="false" data-tab="4" onclick="selectStarTab(4)">
-      <i class="fas fa-star"></i>
-      <span>Tab 4</span>
+      <i class="fas fa-handshake"></i>
+      <span>Connections</span>
     </div>
     <div class="nav-tab" role="tab" tabindex="-1" aria-selected="false" data-tab="5" onclick="selectStarTab(5)">
-      <i class="fas fa-star"></i>
-      <span>Tab 5</span>
+      <i class="fas fa-cog"></i>
+      <span>Settings</span>
     </div>
 
-    <!-- User Tabs -->
+    <!-- User Tab -->
     <div
       id="userTab"
       class="nav-tab user-tab"
@@ -278,10 +250,8 @@
         tab.setAttribute("aria-selected", isSelected ? "true" : "false");
         tab.tabIndex = isSelected ? 0 : -1;
       });
-      // Unselect mentor and user tabs when star tabs selected
       unselectMentorUserTabs();
-      console.log("Switched to star tab", tabNumber);
-      // Add your content switching logic here
+      // You can add content switching logic here if needed
     }
 
     // Mentor tab click logic
@@ -294,7 +264,6 @@
         // Go to mentor login page
         window.location.href = "login mentor.html";
       }
-      // Update active tab styling
       selectMentorTab();
     }
 
@@ -302,14 +271,36 @@
     function userTabClick() {
       const loggedInUser = localStorage.getItem("loggedInUser");
       if (loggedInUser) {
-        // Go to user profile page
-        window.location.href = "profile.html";
+        // User is logged in, so this acts as a logout button
+        logoutUser();
       } else {
         // Go to user login page
         window.location.href = "login.html";
       }
-      // Update active tab styling
-      selectUserTab();
+    }
+
+    // Logout function for user or mentor
+    function logoutUser() {
+      // Clear localStorage login keys for user and mentor
+      localStorage.removeItem("loggedInUser");
+      localStorage.removeItem("loggedInMentor");
+      updateTabs();
+      selectStarTab(1);
+      // Optionally redirect or refresh page here
+    }
+
+    // Logout function for mentor logout tab
+    function logoutMentor() {
+      localStorage.removeItem("loggedInMentor");
+      localStorage.removeItem("loggedInUser");
+      updateTabs();
+      selectStarTab(1);
+      // Optionally redirect or refresh page here
+    }
+
+    // Mentor tab logout click (for when mentor is logged in)
+    function mentorLogoutClick() {
+      logoutMentor();
     }
 
     // Update the mentor/user tabs to active/inactive based on login
@@ -359,7 +350,7 @@
       unselectUserTab();
     }
 
-    // Update tab labels based on login status
+    // Update tab labels and click handlers based on login status
     function updateTabs() {
       const loggedInMentor = localStorage.getItem("loggedInMentor");
       const loggedInUser = localStorage.getItem("loggedInUser");
@@ -370,24 +361,58 @@
       const userTab = document.getElementById("userTab");
       const userLabel = document.getElementById("userTabLabel");
 
-      if (loggedInMentor && !loggedInUser) {
+      if (loggedInUser && !loggedInMentor) {
+        // User is logged in
+        mentorLabel.textContent = "User Profile";
+        mentorTab.onclick = () => {
+          window.location.href = "profile.html"; // user profile
+          selectMentorTab();
+        };
+        mentorTab.querySelector('i').className = 'fas fa-user'; // user icon
+
+        userLabel.textContent = "Logout";
+        userTab.onclick = () => {
+          logoutUser();
+        };
+        userTab.querySelector('i').className = 'fas fa-sign-out-alt'; // logout icon
+
+      } else if (loggedInMentor && !loggedInUser) {
+        // Mentor is logged in
         mentorLabel.textContent = "Mentor Profile";
-        userLabel.textContent = "User Login";
-      } else if (loggedInUser && !loggedInMentor) {
-        userLabel.textContent = "User Profile";
-        mentorLabel.textContent = "Mentor Login";
+        mentorTab.onclick = () => {
+          window.location.href = "mentor-profile.html"; // mentor profile
+          selectMentorTab();
+        };
+        mentorTab.querySelector('i').className = 'fas fa-user-tie'; // mentor icon
+
+        userLabel.textContent = "Logout";
+        userTab.onclick = () => {
+          logoutMentor();
+        };
+        userTab.querySelector('i').className = 'fas fa-sign-out-alt'; // logout icon
+
       } else {
+        // No one logged in
         mentorLabel.textContent = "Mentor Login";
+        mentorTab.onclick = mentorTabClick;
+        mentorTab.querySelector('i').className = 'fas fa-user-tie';
+
         userLabel.textContent = "User Login";
+        userTab.onclick = userTabClick;
+        userTab.querySelector('i').className = 'fas fa-user';
       }
+
+      // Reset tab active states and tabindex for accessibility
+      unselectMentorUserTabs();
+      selectStarTab(1);
     }
 
     // On page load
     document.addEventListener("DOMContentLoaded", () => {
       updateTabs();
-      // Default select star tab 1
       selectStarTab(1);
     });
+
   </script>
 </body>
 </html>
