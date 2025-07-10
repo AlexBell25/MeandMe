@@ -213,7 +213,7 @@
       <i class="fas fa-user-circle"></i>
       <span>Reccommendations</span>
     </div>
-    <div class="nav-tab" role="tab" tabindex="-1" aria-selected="false" data-tab="4" onclick="selectStarTab(4)">
+    <div class="nav-tab" role="tab" tabindex="-1" aria-selected="false" data-tab="4" onclick="connectionsStarTab()">
       <i class="fas fa-handshake"></i>
       <span>Connections</span>
     </div>
@@ -253,7 +253,14 @@
       unselectMentorUserTabs();
       // You can add content switching logic here if needed
     }
-
+    function connectionsStarTab(){
+      const loggedInMentor = localStorage.getItem("loggedInMentor")
+      if (loggedInMentor){
+        window.location.href = "mentor connections.html";
+      }else {
+        window.location.href = "connections.html";
+      }
+    }
     // Mentor tab click logic
     function mentorTabClick() {
       const loggedInMentor = localStorage.getItem("loggedInMentor");

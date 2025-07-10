@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mentee Dashboard</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      text-align: center;
+      padding: 0;
+    }
+
+    header {
+      background-color: #a4c2b2;
+      padding: 40px 20px;
+      border-bottom-left-radius: 80px;
+      border-bottom-right-radius: 80px;
+    }
+
+    header h1 {
+      margin: 0;
+      color: #2f4f4f;
+      font-size: 24px;
+    }
+
+    .mentee-profile {
+      background-color: #b7d1c7;
+      width: 150px;
+      height: 180px;
+      margin: 30px auto;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .mentee-profile img,
+    .mentor-card img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      background-color: #6e8f84;
+    }
+
+    .mentee-profile span {
+      margin-top: 10px;
+      color: #2f4f4f;
+      font-weight: bold;
+    }
+
+    .section-title {
+      margin: 20px 0 10px;
+      font-weight: bold;
+      color: #2f4f4f;
+    }
+
+    .mentor-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 15px;
+      padding: 0 20px 40px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .mentor-card {
+      background-color: #b7d1c7;
+      height: 100px;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      header h1 {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>MENTORS AND MENTEES</h1>
+  </header>
+
+  <!-- MENTEE CARD -->
+  <div class="mentee-profile" onclick="uploadImage(this)">
+    <img src="profile.png" alt="Mentee Avatar" />
+    <span>MENTEE</span>
+    <input type="file" accept="image/*" onchange="handleImageUpload(event, this.parentElement)" />
+  </div>
+
+  <div class="section-title">AVAILABLE MENTORS FOR YOU:</div>
+
+  <!-- MENTOR GRID -->
+  <div class="mentor-grid">
+    <!-- 6 mentor cards -->
+    <div class="mentor-card" onclick="uploadImage(this)">
+      <img src="profile.png
+" alt="Mentor Avatar" />
+      <input type="file" accept="image/*" onchange="handleImageUpload(event, this.parentElement)" />
+    </div>
+    <div class="mentor-card" onclick="uploadImage(this)">
+      <img src="profile.png
+" alt="Mentor Avatar" />
+      <input type="file" accept="image/*" onchange="handleImageUpload(event, this.parentElement)" />
+    </div>
+    <div class="mentor-card" onclick="uploadImage(this)">
+      <img src="profile.png
+" alt="Mentor Avatar" />
+      <input type="file" accept="image/*" onchange="handleImageUpload(event, this.parentElement)" />
+    </div>
+    <div class="mentor-card" onclick="uploadImage(this)">
+      <img src="profile.png
+" alt="Mentor Avatar" />
+      <input type="file" accept="image/*" onchange="handleImageUpload(event, this.parentElement)" />
+    </div>
+    <div class="mentor-card" onclick="uploadImage(this)">
+      <img src="profile.png
+" alt="Mentor Avatar" />
+      <input type="file" accept="image/*" onchange="handleImageUpload(event, this.parentElement)" />
+    </div>
+    <div class="mentor-card" onclick="uploadImage(this)">
+      <img src="profile.png
+" alt="Mentor Avatar" />
+      <input type="file" accept="image/*" onchange="handleImageUpload(event, this.parentElement)" />
+    </div>
+        <div class="mentor-card" onclick="uploadImage(this)">
+      <img src="profile.png
+" alt="Mentor Avatar" />
+      <input type="file" accept="image/*" onchange="handleImageUpload(event, this.parentElement)" />
+    </div>
+        <div class="mentor-card" onclick="uploadImage(this)">
+      <img src="profile.png
+" alt="Mentor Avatar" />
+      <input type="file" accept="image/*" onchange="handleImageUpload(event, this.parentElement)" />
+    </div>
+        <div class="mentor-card" onclick="uploadImage(this)">
+      <img src="profile.png
+" alt="Mentor Avatar" />
+      <input type="file" accept="image/*" onchange="handleImageUpload(event, this.parentElement)" />
+    </div>
+        <div class="mentor-card" onclick="uploadImage(this)">
+      <img src="profile.png
+" alt="Mentor Avatar" />
+      <input type="file" accept="image/*" onchange="handleImageUpload(event, this.parentElement)" />
+    </div>
+  </div>
+<script>
+        function goBack(url) {
+    window.location.href = url;
+}
+</script>
+<button onclick="goBack('index.html')" style="position:absolute; top:10px; left:10px;">🔙 Back</button>
+
+</body>
+</html>
