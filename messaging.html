@@ -145,6 +145,7 @@
       <div class="icons">
         <i onclick="alert('Starting video call')" title="Video Call">📹</i>
         <i onclick="alert('Starting voice call')" title="Voice Call">📞</i>
+        
       </div>
     </div>
 
@@ -174,7 +175,15 @@
       input.value = '';
       messageList.scrollTop = messageList.scrollHeight;
     }
+
+    function goBack(url) {
+    window.location.href = url;}
+
+
   </script>
+  
+  <button onclick="goBack('index.html')" style="position:absolute; top:10px; left:10px;">🔙 Back</button>
+
 </body>
 </html>
 
