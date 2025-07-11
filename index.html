@@ -161,7 +161,7 @@
       <i class="fas fa-calendar"></i>
       <span>Calendar</span>
     </div>
-    <div id="tabRecs" class="nav-tab" data-tab="3" onclick="selectStarTab(3)">
+    <div id="tabRecs" class="nav-tab" data-tab="3" onclick="reccomendationsStarTab()">
       <i class="fas fa-user-circle"></i>
       <span>Recommendations</span>
     </div>
@@ -169,7 +169,7 @@
       <i class="fas fa-handshake"></i>
       <span>Connections</span>
     </div>
-    <div id="tabSettings" class="nav-tab" data-tab="5" onclick="selectStarTab(5)">
+    <div id="tabSettings" class="nav-tab" data-tab="5" onclick="settingsStarTab()">
       <i class="fas fa-cog"></i>
       <span>Settings</span>
     </div>
@@ -192,6 +192,12 @@
 
     function messagesStarTab() {
       window.location.href = "messaging.html";
+    }
+        function settingsStarTab() {
+      window.location.href = "settings.html";
+    }
+        function reccomendationsStarTab() {
+      window.location.href = "reccomendations.html";
     }
 
     function connectionsStarTab() {
