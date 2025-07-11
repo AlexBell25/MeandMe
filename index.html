@@ -1,15 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mentorship App</title>
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-  />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    /* Reset and Base */
     * {
       margin: 0;
       padding: 0;
@@ -20,10 +16,9 @@
       font-family: 'Segoe UI', sans-serif;
       background-color: #ffffff;
       color: #2b2b2b;
-      padding-bottom: 70px; /* space for bottom nav */
+      padding-bottom: 70px;
     }
 
-    /* Header */
     .header {
       background-color: #a5c4bb;
       padding: 30px 20px 40px;
@@ -45,70 +40,6 @@
       color: #444;
     }
 
-    /* Content */
-    .content {
-      padding: 20px;
-    }
-
-    .section {
-      margin-bottom: 20px;
-    }
-
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      font-size: 14px;
-      font-weight: 500;
-      color: #3b5853;
-    }
-
-    .profile-scroll {
-      display: flex;
-      overflow-x: auto;
-      gap: 12px;
-      scroll-behavior: smooth;
-    }
-
-    .profile-card {
-      width: 100px;
-      height: 130px;
-      border-radius: 16px;
-      background-color: #c3d8d1;
-      flex-shrink: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .profile-card.small {
-      width: 60px;
-    }
-
-    .profile-card img {
-      width: 50px;
-      height: 50px;
-    }
-
-    .close {
-      font-size: 12px;
-      color: #666;
-      cursor: pointer;
-      background: none;
-      border: none;
-      font-family: inherit;
-    }
-
-    /* Rectangular Boxes */
-    .rect-box {
-      background-color: #d3e2db;
-      border-radius: 20px;
-      height: 80px;
-      margin-top: 16px;
-    }
-
-    /* Bottom Navigation as full width tab bar */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -122,7 +53,6 @@
       user-select: none;
     }
 
-    /* Each tab */
     .nav-tab {
       flex-grow: 1;
       text-align: center;
@@ -154,11 +84,6 @@
       color: #6b52b8;
     }
 
-    .nav-tab:hover:not(.active) {
-      color: #333;
-    }
-
-    /* To separate mentor/user tabs visually, add small margin */
     .mentor-tab {
       border-right: 1px solid #ccc;
     }
@@ -167,200 +92,117 @@
       border-left: 1px solid #ccc;
     }
 
-    /* Responsive tweak: reduce font/icon size on very small screens */
     @media (max-width: 400px) {
       .nav-tab {
         font-size: 10px;
       }
+
       .nav-tab i {
         font-size: 14px;
       }
     }
+
+    /* Hide tabs dynamically via JS */
+    .hidden {
+      display: none !important;
+    }
   </style>
 </head>
 <body>
-  <!-- Header -->
   <div class="header">
     <img id="mainProfileImage" src="profile.png" alt="Profile Icon" />
     <h2>WELCOME USER!</h2>
   </div>
 
-  <!-- Combined full-width bottom nav bar with tabs -->
-  <div class="bottom-nav" role="tablist" aria-label="Main navigation tabs">
-    <!-- Mentor Tab -->
-    <div
-      id="mentorTab"
-      class="nav-tab mentor-tab"
-      role="tab"
-      tabindex="0"
-      aria-selected="false"
-      onclick="mentorTabClick()"
-    >
+  <div class="bottom-nav" id="bottomNav" role="tablist">
+    <!-- Mentor login/profile -->
+    <div id="mentorTab" class="nav-tab mentor-tab" onclick="mentorTabClick()">
       <i class="fas fa-user-tie"></i>
       <span id="mentorTabLabel">Mentor Login</span>
     </div>
 
-    <!-- Star tabs -->
-    <div class="nav-tab active" role="tab" tabindex="0" aria-selected="true" data-tab="1" onclick="selectStarTab(1)">
+    <!-- Hidden unless logged in -->
+    <div id="tabMessages" class="nav-tab" data-tab="1" onclick="messagesStarTab()">
       <i class="fas fa-comment"></i>
       <span>Messages</span>
     </div>
-    <div class="nav-tab" role="tab" tabindex="-1" aria-selected="false" data-tab="2" onclick="selectStarTab(2)">
+    <div id="tabCalendar" class="nav-tab" data-tab="2" onclick="selectStarTab(2)">
       <i class="fas fa-calendar"></i>
       <span>Calendar</span>
     </div>
-    <div class="nav-tab" role="tab" tabindex="-1" aria-selected="false" data-tab="3" onclick="selectStarTab(3)">
+    <div id="tabRecs" class="nav-tab" data-tab="3" onclick="selectStarTab(3)">
       <i class="fas fa-user-circle"></i>
-      <span>Reccommendations</span>
+      <span>Recommendations</span>
     </div>
-    <div class="nav-tab" role="tab" tabindex="-1" aria-selected="false" data-tab="4" onclick="connectionsStarTab()">
+    <div id="tabConnections" class="nav-tab" data-tab="4" onclick="connectionsStarTab()">
       <i class="fas fa-handshake"></i>
       <span>Connections</span>
     </div>
-    <div class="nav-tab" role="tab" tabindex="-1" aria-selected="false" data-tab="5" onclick="selectStarTab(5)">
+    <div id="tabSettings" class="nav-tab" data-tab="5" onclick="selectStarTab(5)">
       <i class="fas fa-cog"></i>
       <span>Settings</span>
     </div>
 
-    <!-- User Tab -->
-    <div
-      id="userTab"
-      class="nav-tab user-tab"
-      role="tab"
-      tabindex="0"
-      aria-selected="false"
-      onclick="userTabClick()"
-    >
+    <!-- User login/logout -->
+    <div id="userTab" class="nav-tab user-tab" onclick="userTabClick()">
       <i class="fas fa-user"></i>
       <span id="userTabLabel">User Login</span>
     </div>
   </div>
 
   <script>
-    function removeProfiles() {
-      document.getElementById("profileList").style.display = "none";
-    }
-
-    // Star tab logic
     function selectStarTab(tabNumber) {
-      const starTabs = document.querySelectorAll(".bottom-nav .nav-tab[data-tab]");
+      const starTabs = document.querySelectorAll(".nav-tab[data-tab]");
       starTabs.forEach((tab) => {
         const isSelected = tab.dataset.tab == tabNumber;
         tab.classList.toggle("active", isSelected);
-        tab.setAttribute("aria-selected", isSelected ? "true" : "false");
+        tab.setAttribute("aria-selected", isSelected);
         tab.tabIndex = isSelected ? 0 : -1;
       });
-      unselectMentorUserTabs();
-      // You can add content switching logic here if needed
-    }
-    function connectionsStarTab(){
-      const loggedInMentor = localStorage.getItem("loggedInMentor")
-      if (loggedInMentor){
-        window.location.href = "mentor connections.html";
-      }else {
-        window.location.href = "connections.html";
-      }
-    }
-    // Mentor tab click logic
-    function mentorTabClick() {
-      const loggedInMentor = localStorage.getItem("loggedInMentor");
-      if (loggedInMentor) {
-        // Go to mentor profile page
-        window.location.href = "mentor-profile.html";
-      } else {
-        // Go to mentor login page
-        window.location.href = "login mentor.html";
-      }
-      selectMentorTab();
     }
 
-    // User tab click logic
+    function messagesStarTab() {
+      window.location.href = "messaging.html";
+    }
+
+    function connectionsStarTab() {
+      const mentor = localStorage.getItem("loggedInMentor");
+      window.location.href = mentor ? "mentor connections.html" : "connections.html";
+    }
+
+    function mentorTabClick() {
+      const mentor = localStorage.getItem("loggedInMentor");
+      if (mentor) {
+        window.location.href = "mentor-profile.html";
+      } else {
+        window.location.href = "login mentor.html";
+      }
+    }
+
     function userTabClick() {
-      const loggedInUser = localStorage.getItem("loggedInUser");
-      if (loggedInUser) {
-        // User is logged in, so this acts as a logout button
+      const user = localStorage.getItem("loggedInUser");
+      if (user) {
         logoutUser();
       } else {
-        // Go to user login page
         window.location.href = "login.html";
       }
     }
 
-    // Logout function for user or mentor
     function logoutUser() {
-      // Clear localStorage login keys for user and mentor
       localStorage.removeItem("loggedInUser");
       localStorage.removeItem("loggedInMentor");
       updateTabs();
-      selectStarTab(1);
-      // Optionally redirect or refresh page here
     }
 
-    // Logout function for mentor logout tab
     function logoutMentor() {
       localStorage.removeItem("loggedInMentor");
       localStorage.removeItem("loggedInUser");
       updateTabs();
-      selectStarTab(1);
-      // Optionally redirect or refresh page here
     }
 
-    // Mentor tab logout click (for when mentor is logged in)
-    function mentorLogoutClick() {
-      logoutMentor();
-    }
-
-    // Update the mentor/user tabs to active/inactive based on login
-    function selectMentorTab() {
-      document.getElementById("mentorTab").classList.add("active");
-      document.getElementById("mentorTab").setAttribute("aria-selected", "true");
-      document.getElementById("mentorTab").tabIndex = 0;
-
-      unselectStarTabs();
-      unselectUserTab();
-    }
-
-    function selectUserTab() {
-      document.getElementById("userTab").classList.add("active");
-      document.getElementById("userTab").setAttribute("aria-selected", "true");
-      document.getElementById("userTab").tabIndex = 0;
-
-      unselectStarTabs();
-      unselectMentorTab();
-    }
-
-    function unselectMentorTab() {
-      const tab = document.getElementById("mentorTab");
-      tab.classList.remove("active");
-      tab.setAttribute("aria-selected", "false");
-      tab.tabIndex = -1;
-    }
-
-    function unselectUserTab() {
-      const tab = document.getElementById("userTab");
-      tab.classList.remove("active");
-      tab.setAttribute("aria-selected", "false");
-      tab.tabIndex = -1;
-    }
-
-    function unselectStarTabs() {
-      const starTabs = document.querySelectorAll(".bottom-nav .nav-tab[data-tab]");
-      starTabs.forEach((tab) => {
-        tab.classList.remove("active");
-        tab.setAttribute("aria-selected", "false");
-        tab.tabIndex = -1;
-      });
-    }
-
-    function unselectMentorUserTabs() {
-      unselectMentorTab();
-      unselectUserTab();
-    }
-
-    // Update tab labels and click handlers based on login status
     function updateTabs() {
-      const loggedInMentor = localStorage.getItem("loggedInMentor");
       const loggedInUser = localStorage.getItem("loggedInUser");
+      const loggedInMentor = localStorage.getItem("loggedInMentor");
 
       const mentorTab = document.getElementById("mentorTab");
       const mentorLabel = document.getElementById("mentorTabLabel");
@@ -368,72 +210,51 @@
       const userTab = document.getElementById("userTab");
       const userLabel = document.getElementById("userTabLabel");
 
+      const tabIds = ["tabMessages", "tabCalendar", "tabRecs", "tabConnections", "tabSettings"];
+      const showTabs = loggedInUser || loggedInMentor;
+
+      // Show/hide content tabs
+      tabIds.forEach(id => {
+        document.getElementById(id).classList.toggle("hidden", !showTabs);
+      });
+
+      // Update mentor/user tab labels and icons
       if (loggedInUser && !loggedInMentor) {
-        // User is logged in
         mentorLabel.textContent = "User Profile";
-        mentorTab.onclick = () => {
-          window.location.href = "profile.html"; // user profile
-          selectMentorTab();
-        };
-        mentorTab.querySelector('i').className = 'fas fa-user'; // user icon
+        mentorTab.querySelector("i").className = "fas fa-user";
+        mentorTab.onclick = () => window.location.href = "profile.html";
 
         userLabel.textContent = "Logout";
-        userTab.onclick = () => {
-          logoutUser();
-        };
-        userTab.querySelector('i').className = 'fas fa-sign-out-alt'; // logout icon
+        userTab.querySelector("i").className = "fas fa-sign-out-alt";
+        userTab.onclick = logoutUser;
 
       } else if (loggedInMentor && !loggedInUser) {
-        // Mentor is logged in
         mentorLabel.textContent = "Mentor Profile";
-        mentorTab.onclick = () => {
-          window.location.href = "mentor-profile.html"; // mentor profile
-          selectMentorTab();
-        };
-        mentorTab.querySelector('i').className = 'fas fa-user-tie'; // mentor icon
+        mentorTab.querySelector("i").className = "fas fa-user-tie";
+        mentorTab.onclick = () => window.location.href = "mentor-profile.html";
 
         userLabel.textContent = "Logout";
-        userTab.onclick = () => {
-          logoutMentor();
-        };
-        userTab.querySelector('i').className = 'fas fa-sign-out-alt'; // logout icon
+        userTab.querySelector("i").className = "fas fa-sign-out-alt";
+        userTab.onclick = logoutMentor;
 
       } else {
-        // No one logged in
         mentorLabel.textContent = "Mentor Login";
+        mentorTab.querySelector("i").className = "fas fa-user-tie";
         mentorTab.onclick = mentorTabClick;
-        mentorTab.querySelector('i').className = 'fas fa-user-tie';
 
         userLabel.textContent = "User Login";
+        userTab.querySelector("i").className = "fas fa-user";
         userTab.onclick = userTabClick;
-        userTab.querySelector('i').className = 'fas fa-user';
       }
-
-      // Reset tab active states and tabindex for accessibility
-      unselectMentorUserTabs();
-      selectStarTab(1);
     }
 
-    // On page load
     document.addEventListener("DOMContentLoaded", () => {
       updateTabs();
-      selectStarTab(1);
+
+      const savedImage = localStorage.getItem("userProfileImage");
+      const profileImg = document.getElementById("mainProfileImage");
+      profileImg.src = savedImage || "profile.png";
     });
-document.addEventListener("DOMContentLoaded", () => {
-  updateTabs();
-  selectStarTab(1);
-
-  // Load saved profile picture from localStorage (user)
-  const savedImage = localStorage.getItem("userProfileImage");
-  const profileImg = document.getElementById("mainProfileImage");
-
-  if (savedImage && profileImg) {
-    profileImg.src = savedImage;
-  } else {
-    profileImg.src = "profile.png"; // fallback image
-  }
-});
-
   </script>
 </body>
 </html>

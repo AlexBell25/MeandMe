@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Full Width Calendar with Meeting Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+
+    .calendar {
+      width: 100vw;
+      max-width: 1200px;
+      border: 1px solid #ddd;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      background: white;
+      user-select: none;
+      box-sizing: border-box;
+      padding-bottom: 30px;
+    }
+
+    .calendar-header {
+      background-color: #007bff;
+      color: white;
+      padding: 12px 50px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.5em;
+      position: relative;
+      box-sizing: border-box;
+    }
+
+    /* Prev/Next buttons */
+    .calendar-header button {
+      position: absolute;
+      top: 10px;
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 1.5em;
+      cursor: pointer;
+      padding: 4px 12px;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+    }
+
+    .calendar-header button:hover {
+      background-color: rgba(255,255,255,0.2);
+    }
+
+    .prev-btn {
+      left: 10px;
+    }
+
+    .next-btn {
+      right: 10px;
+    }
+
+    /* Days of week row */
+    .calendar-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      background-color: #007bff;
+      color: white;
+      font-weight: bold;
+      user-select: none;
+    }
+
+    .calendar-days div {
+      padding: 8px 0;
+      text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.3);
+      font-size: 0.9rem;
+    }
+
+    .calendar-days div:last-child {
+      border-right: none;
+    }
+
+    /* Dates grid */
+    .calendar-dates {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      border-top: 1px solid #ddd;
+      box-sizing: border-box;
+    }
+
+    .calendar-dates div {
+      padding: 6px 4px;
+      border: 1px solid #ddd;
+      min-height: 80px;
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      font-size: 0.85rem;
+      overflow-y: auto;
+    }
+
+    .calendar-dates div:hover:not(.inactive) {
+      background-color: #e6f0ff;
+    }
+
+    .calendar-dates div.inactive {
+      background-color: #f9f9f9;
+      color: #aaa;
+      cursor: default;
+    }
+
+    /* Date number */
+    .date-number {
+      font-weight: bold;
+      margin-bottom: 4px;
+      user-select: none;
+      font-size: 1rem;
+    }
+
+    /* Highlight today */
+    .today {
+      background-color: #ffdd57 !important;
+    }
+
+    /* Meeting styling */
+    .meeting {
+      background-color: #007bff;
+      color: white;
+      border-radius: 12px;
+      padding: 3px 6px;
+      font-size: 11px;
+      margin-top: 3px;
+      word-wrap: break-word;
+      max-height: 38px;
+      overflow-y: auto;
+    }
+
+    /* Scrollbar for meetings if overflow */
+    .meeting::-webkit-scrollbar {
+      width: 5px;
+    }
+    .meeting::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.3);
+      border-radius: 3px;
+    }
+
+    /* Modal overlay */
+    #modalOverlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Modal content */
+    #meetingForm {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      width: 320px;
+      box-sizing: border-box;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+    }
+
+    #meetingForm h2 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+      text-align: center;
+    }
+
+    #meetingForm label {
+      margin-bottom: 6px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    #meetingForm input[type="text"],
+    #meetingForm input[type="time"] {
+      padding: 8px;
+      font-size: 1rem;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    #meetingForm button {
+      background-color: #007bff;
+      border: none;
+      padding: 10px;
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #meetingForm button:hover {
+      background-color: #0056b3;
+    }
+
+    #meetingForm .cancel-btn {
+      background-color: #ccc;
+      margin-top: 8px;
+    }
+
+    #meetingForm .cancel-btn:hover {
+      background-color: #999;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="calendar" id="calendar">
+    <div class="calendar-header">
+      <button class="prev-btn" id="prevBtn">&#8592;</button>
+      <span id="monthYear"></span>
+      <button class="next-btn" id="nextBtn">&#8594;</button>
+    </div>
+    <div class="calendar-days">
+      <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+    </div>
+    <div class="calendar-dates" id="calendarDates"></div>
+  </div>
+
+  <!-- Modal for adding meeting -->
+  <div id="modalOverlay">
+    <form id="meetingForm">
+      <h2>Add Meeting</h2>
+      <label for="meetingTime">Time:</label>
+      <input type="time" id="meetingTime" required />
+      <label for="meetingName">Meeting Name:</label>
+      <input type="text" id="meetingName" placeholder="Enter meeting name" required />
+      <button type="submit">Add Meeting</button>
+      <button type="button" class="cancel-btn" id="cancelBtn">Cancel</button>
+    </form>
+  </div>
+
+  <script>
+    const calendarDates = document.getElementById('calendarDates');
+    const monthYear = document.getElementById('monthYear');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    const modalOverlay = document.getElementById('modalOverlay');
+    const meetingForm = document.getElementById('meetingForm');
+    const meetingTimeInput = document.getElementById('meetingTime');
+    const meetingNameInput = document.getElementById('meetingName');
+    const cancelBtn = document.getElementById('cancelBtn');
+
+    let currentYear, currentMonth;
+
+    let meetings = {}; // { 'YYYY-MM-DD': [ {time, name}, ... ] }
+
+    const today = new Date();
+    currentYear = today.getFullYear();
+    currentMonth = today.getMonth();
+
+    let selectedDate = null;
+
+    function formatDate(year, month, day) {
+      const mm = (month + 1).toString().padStart(2, '0');
+      const dd = day.toString().padStart(2, '0');
+      return `${year}-${mm}-${dd}`;
+    }
+
+    function renderCalendar(year, month) {
+      calendarDates.innerHTML = '';
+      monthYear.textContent = new Date(year, month).toLocaleString('default', { month: 'long', year: 'numeric' });
+
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const prevMonthDays = new Date(year, month, 0).getDate();
+      const totalCells = 42;
+
+      for (let i = 0; i < totalCells; i++) {
+        const cell = document.createElement('div');
+        let dayNumber = null;
+        let cellDateStr = '';
+
+        if (i < firstDay) {
+          dayNumber = prevMonthDays - firstDay + 1 + i;
+          cell.classList.add('inactive');
+          cell.textContent = dayNumber;
+        } else if (i >= firstDay && i < firstDay + daysInMonth) {
+          dayNumber = i - firstDay + 1;
+          cellDateStr = formatDate(year, month, dayNumber);
+
+          const dateNumEl = document.createElement('span');
+          dateNumEl.className = 'date-number';
+          dateNumEl.textContent = dayNumber;
+          cell.appendChild(dateNumEl);
+
+          if (year === today.getFullYear() && month === today.getMonth() && dayNumber === today.getDate()) {
+            cell.classList.add('today');
+          }
+
+          if (meetings[cellDateStr]) {
+            // Sort meetings by time before showing
+            const sortedMeetings = meetings[cellDateStr].slice().sort((a, b) => a.time.localeCompare(b.time));
+            for (const meeting of sortedMeetings) {
+              const meetEl = document.createElement('div');
+              meetEl.className = 'meeting';
+              meetEl.textContent = `${meeting.time} - ${meeting.name}`;
+              cell.appendChild(meetEl);
+            }
+          }
+
+          cell.addEventListener('click', () => {
+            selectedDate = cellDateStr;
+            openModal(selectedDate);
+          });
+
+        } else {
+          dayNumber = i - firstDay - daysInMonth + 1;
+          cell.classList.add('inactive');
+          cell.textContent = dayNumber;
+        }
+
+        calendarDates.appendChild(cell);
+      }
+    }
+
+    function openModal(dateStr) {
+      meetingForm.reset();
+      modalOverlay.style.display = 'flex';
+      meetingTimeInput.focus();
+    }
+
+    function closeModal() {
+      modalOverlay.style.display = 'none';
+      selectedDate = null;
+    }
+
+    meetingForm.addEventListener('submit', e => {
+      e.preventDefault();
+
+      const time = meetingTimeInput.value.trim();
+      const name = meetingNameInput.value.trim();
+
+      if (!time || !name) return alert('Please enter both time and meeting name.');
+
+      if (!meetings[selectedDate]) meetings[selectedDate] = [];
+      meetings[selectedDate].push({ time, name });
+
+      closeModal();
+      renderCalendar(currentYear, currentMonth);
+    });
+
+    cancelBtn.addEventListener('click', e => {
+      e.preventDefault();
+      closeModal();
+    });
+
+    prevBtn.addEventListener('click', () => {
+      currentMonth--;
+      if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+      }
+      renderCalendar(currentYear, currentMonth);
+    });
+
+    nextBtn.addEventListener('click', () => {
+      currentMonth++;
+      if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+      }
+      renderCalendar(currentYear, currentMonth);
+    });
+
+    // Close modal on outside click
+    modalOverlay.addEventListener('click', e => {
+      if (e.target === modalOverlay) closeModal();
+    });
+
+    renderCalendar(currentYear, currentMonth);
+  </script>
+</body>
+</html>
