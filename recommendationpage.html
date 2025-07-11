@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mentors and Mentees</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #fff;
+      padding: 0;
+    }
+
+    .header {
+      background-color: #9bbab3;
+      text-align: center;
+      padding: 20px 10px;
+      border-bottom-left-radius: 50% 20%;
+      border-bottom-right-radius: 50% 20%;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 1.3rem;
+      color: #333;
+    }
+
+    .mentee-section {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .mentee-card {
+      background-color: #a0c4b8;
+      width: 150px;
+      margin: 0 auto;
+      border-radius: 15px;
+      padding: 20px;
+    }
+
+    .mentee-card img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+
+    .mentee-card .label {
+      font-weight: bold;
+      color: #333;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 1rem;
+      margin: 20px 0 10px;
+      color: #333;
+    }
+
+    .mentors-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      padding: 0 20px 30px;
+    }
+
+    .mentor-card {
+      background-color: #b2d5cc;
+      padding: 15px;
+      border-radius: 15px;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+
+    .mentor-card:hover {
+      transform: scale(1.05);
+    }
+
+    .mentor-card img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin-bottom: 8px;
+    }
+
+    .mentor-card .name {
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    @media (max-width: 500px) {
+      .mentors-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>MENTORS AND MENTEES</h1>
+  </div>
+
+  <div class="mentee-section">
+    <div class="mentee-card">
+      <img src="https://via.placeholder.com/80" alt="Mentee" />
+      <div class="label">MENTEE</div>
+    </div>
+  </div>
+
+  <div class="section-title">Available Mentors For You:</div>
+
+  <div class="mentors-grid" id="mentorList">
+    <!-- Mentors will be inserted here by JS -->
+  </div>
+
+  <script>
+    const mentors = [
+      { name: "Alex Rivera", img: "https://randomuser.me/api/portraits/men/32.jpg" },
+      { name: "Jamie Wong", img: "https://randomuser.me/api/portraits/women/44.jpg" },
+      { name: "Taylor Brooks", img: "https://randomuser.me/api/portraits/men/57.jpg" },
+      { name: "Morgan Lee", img: "https://randomuser.me/api/portraits/women/66.jpg" },
+      { name: "Chris Jordan", img: "https://randomuser.me/api/portraits/men/29.jpg" },
+      { name: "Avery Kim", img: "https://randomuser.me/api/portraits/women/72.jpg" }
+    ];
+
+    const mentorList = document.getElementById('mentorList');
+
+    mentors.forEach(mentor => {
+      const card = document.createElement('div');
+      card.className = 'mentor-card';
+      card.innerHTML = `
+        <img src="${mentor.img}" alt="${mentor.name}" />
+        <div class="name">${mentor.name}</div>
+      `;
+      mentorList.appendChild(card);
+    });
+  </script>
+
+</body>
+</html>
