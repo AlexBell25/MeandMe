@@ -211,7 +211,7 @@
 
     function mentorTabClick() {
       const mentor = localStorage.getItem("loggedInMentor");
-      window.location.href = "profile.html";
+      window.location.href = mentor ? "profile.html" : "login mentor.html";
     }
 
     function userTabClick() {
@@ -260,7 +260,7 @@
       } else if (loggedInMentor && !loggedInUser) {
         mentorLabel.textContent = "Mentor Profile";
         mentorTab.querySelector("i").className = "fas fa-user-tie";
-        mentorTab.onclick = () => window.location.href = "mentor-profile.html";
+        mentorTab.onclick = () => window.location.href = "profile.html";
 
         userLabel.textContent = "Logout";
         userTab.querySelector("i").className = "fas fa-sign-out-alt";
