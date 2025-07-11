@@ -32,6 +32,7 @@
 
     .form-group {
       margin-bottom: 16px;
+      position: relative;
     }
 
     .form-group label {
@@ -52,6 +53,20 @@
 
     .form-group input[readonly] {
       pointer-events: none;
+    }
+
+    /* Reveal password button */
+    .reveal-btn {
+      position: absolute;
+      right: 10px;
+      top: 34px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      color: #6b52b8;
+      user-select: none;
+      padding: 0 5px;
     }
 
     .profile-pic {
@@ -115,13 +130,14 @@
     <input type="file" id="picInput" accept="image/*" />
 
     <div class="form-group">
-      <label>Email</label>
-      <input type="email" id="emailInput" readonly />
+      <label>Username</label>
+      <input type="text" id="usernameInput" readonly />
     </div>
 
     <div class="form-group">
-      <label>Username</label>
-      <input type="text" id="usernameInput" readonly />
+      <label>Password</label>
+      <input type="password" id="passwordInput" readonly />
+      <button type="button" class="reveal-btn" id="togglePasswordBtn" aria-label="Reveal password">Show</button>
     </div>
   </div>
 
@@ -135,23 +151,24 @@
 <script>
   const profilePic = document.getElementById('profilePic');
   const picInput = document.getElementById('picInput');
-  const emailInput = document.getElementById('emailInput');
   const usernameInput = document.getElementById('usernameInput');
+  const passwordInput = document.getElementById('passwordInput');
+  const togglePasswordBtn = document.getElementById('togglePasswordBtn');
 
-  // Load data on page load
+  // Load profile data on page load
   window.addEventListener('DOMContentLoaded', () => {
-    // Load profile image from localStorage (key: userProfileImage)
+    // Load profile picture
     const savedImage = localStorage.getItem('userProfileImage');
     if (savedImage) {
       profilePic.src = savedImage;
     }
 
-    // Load email and username from localStorage
-    emailInput.value = localStorage.getItem('profileEmail') || 'you@example.com';
+    // Load username and password from localStorage with fallback defaults
     usernameInput.value = localStorage.getItem('profileUser') || 'username123';
+    passwordInput.value = localStorage.getItem('profilePassword') || 'password123';
   });
 
-  // When user selects a new image, preview and save it in localStorage
+  // Profile picture update handler
   picInput.addEventListener('change', (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -164,6 +181,18 @@
     reader.readAsDataURL(file);
   });
 
+  // Toggle password visibility
+  togglePasswordBtn.addEventListener('click', () => {
+    if (passwordInput.type === 'password') {
+      passwordInput.type = 'text';
+      togglePasswordBtn.textContent = 'Hide';
+    } else {
+      passwordInput.type = 'password';
+      togglePasswordBtn.textContent = 'Show';
+    }
+  });
+
+  // Navigate home function
   function goHome() {
     window.location.href = 'index.html';
   }
