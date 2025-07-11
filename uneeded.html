@@ -195,6 +195,13 @@
     function removeProfiles() {
       document.getElementById('profileList').style.display = 'none';
     }
+     // Apply theme based on saved preference
+  const theme = localStorage.getItem('theme');
+  if (theme === 'dark') {
+    document.body.classList.add('dark-mode');
+  } else {
+    document.body.classList.remove('dark-mode');
+  }
   </script>
 
 </body>

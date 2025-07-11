@@ -53,6 +53,13 @@
     function goBack(url) {
     window.location.href = url;
 }
+ // Apply theme based on saved preference
+  const theme = localStorage.getItem('theme');
+  if (theme === 'dark') {
+    document.body.classList.add('dark-mode');
+  } else {
+    document.body.classList.remove('dark-mode');
+  }
   </script>
 <img src="Logo.png" style = "position:absolute; top:0px ; right:0px" height="50px" width = "70px">
 <button onclick="goBack('index.html')" style="position:absolute; top:10px; left:10px;">🔙 Back</button>

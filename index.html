@@ -17,6 +17,12 @@
       background-color: #ffffff;
       color: #2b2b2b;
       padding-bottom: 70px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.dark-mode {
+      background-color: #121212;
+      color: #e0e0e0;
     }
 
     .header {
@@ -25,6 +31,11 @@
       border-bottom-left-radius: 60px;
       border-bottom-right-radius: 60px;
       text-align: center;
+      transition: background-color 0.3s;
+    }
+
+    body.dark-mode .header {
+      background-color: #2a2a2a;
     }
 
     .header img {
@@ -40,6 +51,10 @@
       color: #444;
     }
 
+    body.dark-mode .header h2 {
+      color: #ccc;
+    }
+
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -51,6 +66,12 @@
       justify-content: space-between;
       z-index: 1000;
       user-select: none;
+      transition: background-color 0.3s, border-color 0.3s;
+    }
+
+    body.dark-mode .bottom-nav {
+      background-color: #1e1e1e;
+      border-top-color: #444;
     }
 
     .nav-tab {
@@ -73,6 +94,7 @@
     .nav-tab i {
       font-size: 18px;
       color: gray;
+      transition: color 0.3s;
     }
 
     .nav-tab.active {
@@ -84,12 +106,25 @@
       color: #6b52b8;
     }
 
+    body.dark-mode .nav-tab {
+      color: #ccc;
+    }
+
+    body.dark-mode .nav-tab i {
+      color: #aaa;
+    }
+
     .mentor-tab {
       border-right: 1px solid #ccc;
     }
 
     .user-tab {
       border-left: 1px solid #ccc;
+    }
+
+    body.dark-mode .mentor-tab,
+    body.dark-mode .user-tab {
+      border-color: #444;
     }
 
     @media (max-width: 400px) {
@@ -102,7 +137,6 @@
       }
     }
 
-    /* Hide tabs dynamically via JS */
     .hidden {
       display: none !important;
     }
@@ -115,13 +149,10 @@
   </div>
 
   <div class="bottom-nav" id="bottomNav" role="tablist">
-    <!-- Mentor login/profile -->
     <div id="mentorTab" class="nav-tab mentor-tab" onclick="mentorTabClick()">
       <i class="fas fa-user-tie"></i>
       <span id="mentorTabLabel">Mentor Login</span>
     </div>
-
-    <!-- Hidden unless logged in -->
     <div id="tabMessages" class="nav-tab" data-tab="1" onclick="messagesStarTab()">
       <i class="fas fa-comment"></i>
       <span>Messages</span>
@@ -142,8 +173,6 @@
       <i class="fas fa-cog"></i>
       <span>Settings</span>
     </div>
-
-    <!-- User login/logout -->
     <div id="userTab" class="nav-tab user-tab" onclick="userTabClick()">
       <i class="fas fa-user"></i>
       <span id="userTabLabel">User Login</span>
@@ -170,27 +199,18 @@
       window.location.href = mentor ? "mentor connections.html" : "connections.html";
     }
 
-        function calendarsStarTab() {
-      const mentor = localStorage.getItem("loggedInMentor");
+    function calendarsStarTab() {
       window.location.href = "calendar.html";
     }
 
     function mentorTabClick() {
       const mentor = localStorage.getItem("loggedInMentor");
-      if (mentor) {
-        window.location.href = "mentor-profile.html";
-      } else {
-        window.location.href = "login mentor.html";
-      }
+      window.location.href = mentor ? "mentor-profile.html" : "login mentor.html";
     }
 
     function userTabClick() {
       const user = localStorage.getItem("loggedInUser");
-      if (user) {
-        logoutUser();
-      } else {
-        window.location.href = "login.html";
-      }
+      user ? logoutUser() : window.location.href = "login.html";
     }
 
     function logoutUser() {
@@ -218,12 +238,10 @@
       const tabIds = ["tabMessages", "tabCalendar", "tabRecs", "tabConnections", "tabSettings"];
       const showTabs = loggedInUser || loggedInMentor;
 
-      // Show/hide content tabs
       tabIds.forEach(id => {
         document.getElementById(id).classList.toggle("hidden", !showTabs);
       });
 
-      // Update mentor/user tab labels and icons
       if (loggedInUser && !loggedInMentor) {
         mentorLabel.textContent = "User Profile";
         mentorTab.querySelector("i").className = "fas fa-user";
@@ -255,10 +273,14 @@
 
     document.addEventListener("DOMContentLoaded", () => {
       updateTabs();
-
       const savedImage = localStorage.getItem("userProfileImage");
-      const profileImg = document.getElementById("mainProfileImage");
-      profileImg.src = savedImage || "profile.png";
+      document.getElementById("mainProfileImage").src = savedImage || "profile.png";
+
+      // Universal theme check
+      const theme = localStorage.getItem("theme");
+      if (theme === "dark") {
+        document.body.classList.add("dark-mode");
+      }
     });
   </script>
 </body>

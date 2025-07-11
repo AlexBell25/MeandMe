@@ -98,6 +98,49 @@
         grid-template-columns: repeat(2, 1fr);
       }
     }
+    body.dark-mode {
+  background-color: #121212;
+  color: #ddd;
+}
+
+body.dark-mode .header {
+  background-color: #254139;
+  color: #cce5df;
+}
+
+body.dark-mode .mentee-card {
+  background-color: #2c5d4b;
+  color: #eee;
+}
+
+body.dark-mode .mentee-card .label {
+  color: #cce5df;
+}
+
+body.dark-mode .section-title {
+  color: #cce5df;
+}
+
+body.dark-mode .mentors-grid {
+  padding: 0 20px 30px;
+}
+
+body.dark-mode .mentor-card {
+  background-color: #3a6b58;
+  color: #eee;
+  box-shadow: 0 0 10px #1e402e;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+body.dark-mode .mentor-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #55a373;
+}
+
+body.dark-mode img {
+  filter: brightness(0.9);
+}
+
   </style>
 </head>
 <body>
@@ -140,7 +183,17 @@
       `;
       mentorList.appendChild(card);
     });
+     // Apply theme based on saved preference
+  const theme = localStorage.getItem('theme');
+  if (theme === 'dark') {
+    document.body.classList.add('dark-mode');
+  } else {
+    document.body.classList.remove('dark-mode');
+  }
+      function goBack(url) {
+    window.location.href = url;
+}
   </script>
-
+<button onclick="goBack('index.html')" style="position:absolute; top:10px; left:10px;">🔙 Back</button>
 </body>
 </html>

@@ -17,6 +17,7 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
+      transition: background-color 0.3s ease;
     }
 
     .app {
@@ -29,6 +30,7 @@
       border-radius: 0;
       border-left: 1px solid #ddd;
       border-right: 1px solid #ddd;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
     }
 
     .header {
@@ -37,6 +39,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      transition: background-color 0.3s ease;
     }
 
     .profile {
@@ -66,6 +69,8 @@
       overflow-y: auto;
       display: flex;
       flex-direction: column;
+      background: #fff;
+      transition: background-color 0.3s ease;
     }
 
     .message {
@@ -74,6 +79,7 @@
       max-width: 70%;
       border-radius: 10px;
       word-wrap: break-word;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     .sent {
@@ -93,6 +99,7 @@
       padding: 15px;
       background-color: #f9f9f9;
       border-top: 1px solid #ccc;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
     }
 
     .input-area input {
@@ -101,6 +108,7 @@
       border: 1px solid #ccc;
       border-radius: 25px;
       outline: none;
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
     }
 
     .input-area button {
@@ -111,6 +119,11 @@
       background-color: #a0c4b8;
       color: white;
       cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .input-area button:hover {
+      background-color: #7aa79d;
     }
 
     /* Responsive design */
@@ -133,6 +146,56 @@
         padding: 10px 15px;
       }
     }
+
+    /* Dark Mode Styles */
+    body.dark-mode {
+      background-color: #121212;
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .app {
+      background-color: #1f1f1f;
+      border-left: 1px solid #333;
+      border-right: 1px solid #333;
+    }
+
+    body.dark-mode .header {
+      background-color: #2f554f;
+    }
+
+    body.dark-mode .messages {
+      background-color: #121212;
+    }
+
+    body.dark-mode .message.sent {
+      background-color: #2f554f;
+      color: #d4f1f4;
+    }
+
+    body.dark-mode .message.received {
+      background-color: #333;
+      color: #ccc;
+    }
+
+    body.dark-mode .input-area {
+      background-color: #1f1f1f;
+      border-top: 1px solid #444;
+    }
+
+    body.dark-mode .input-area input {
+      background-color: #333;
+      color: #eee;
+      border: 1px solid #555;
+    }
+
+    body.dark-mode .input-area button {
+      background-color: #2f554f;
+      color: #d4f1f4;
+    }
+
+    body.dark-mode .input-area button:hover {
+      background-color: #1f3b35;
+    }
   </style>
 </head>
 <body>
@@ -145,7 +208,6 @@
       <div class="icons">
         <i onclick="alert('Starting video call')" title="Video Call">📹</i>
         <i onclick="alert('Starting voice call')" title="Voice Call">📞</i>
-        
       </div>
     </div>
 
@@ -177,13 +239,18 @@
     }
 
     function goBack(url) {
-    window.location.href = url;}
+      window.location.href = url;
+    }
 
-
+    // Apply theme based on saved preference
+    const theme = localStorage.getItem('theme');
+    if (theme === 'dark') {
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
   </script>
-  
-  <button onclick="goBack('index.html')" style="position:absolute; top:10px; left:10px;">🔙 Back</button>
 
+  <button onclick="goBack('index.html')" style="position:absolute; top:10px; left:10px;">🔙 Back</button>
 </body>
 </html>
-

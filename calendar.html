@@ -15,6 +15,80 @@
       align-items: flex-start;
       min-height: 100vh;
     }
+    /* === Dark Mode Support === */
+body.dark-mode {
+  background: #121212;
+  color: #e0e0e0;
+}
+
+body.dark-mode .calendar {
+  background: #1e1e1e;
+  border-color: #333;
+}
+
+body.dark-mode .calendar-header {
+  background-color: #222;
+  color: #fff;
+}
+
+body.dark-mode .calendar-days {
+  background-color: #333;
+  color: #ccc;
+}
+
+body.dark-mode .calendar-days div {
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .calendar-dates div {
+  background: #1c1c1c;
+  color: #e0e0e0;
+  border-color: #333;
+}
+
+body.dark-mode .calendar-dates div.inactive {
+  background-color: #2b2b2b;
+  color: #888;
+}
+
+body.dark-mode .calendar-dates div:hover:not(.inactive) {
+  background-color: #2e3b44;
+}
+
+body.dark-mode .today {
+  background-color: #44475a !important;
+}
+
+body.dark-mode .meeting {
+  background-color: #009688;
+  color: #fff;
+}
+
+/* Modal in dark mode */
+body.dark-mode #meetingForm {
+  background: #2a2a2a;
+  color: #f0f0f0;
+}
+
+body.dark-mode #meetingForm input,
+body.dark-mode #meetingForm input:focus {
+  background: #1c1c1c;
+  color: #fff;
+  border-color: #555;
+}
+
+body.dark-mode #meetingForm button {
+  background-color: #009688;
+}
+
+body.dark-mode #meetingForm .cancel-btn {
+  background-color: #666;
+}
+
+body.dark-mode #meetingForm .cancel-btn:hover {
+  background-color: #888;
+}
+
 
     .calendar {
       width: 100vw;
@@ -394,6 +468,13 @@
         function goBack(url) {
     window.location.href = url;
 }
+ // Apply theme based on saved preference
+  const theme = localStorage.getItem('theme');
+  if (theme === 'dark') {
+    document.body.classList.add('dark-mode');
+  } else {
+    document.body.classList.remove('dark-mode');
+  }
   </script>
   <button onclick="goBack('index.html')" style="position:absolute; top:10px; left:10px;">🔙 Back</button>
 </body>

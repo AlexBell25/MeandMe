@@ -116,3 +116,57 @@ button[type="submit"]:hover {
   font-size: 0.9rem;
   color: #000000;
 }
+body.dark-mode {
+  background: #121212;
+  color: #e0e0e0;
+}
+
+body.dark-mode .signup-page {
+  background: #1e1e1e;
+  color: #ddd;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
+}
+
+body.dark-mode h2 {
+  color: #82cfb7;
+}
+
+body.dark-mode label {
+  color: #bbb;
+}
+
+body.dark-mode input[type="text"],
+body.dark-mode input[type="email"],
+body.dark-mode input[type="password"] {
+  background: #333;
+  color: #ddd;
+  border-radius: 15px;
+  margin-bottom: 40px;
+  font-size: 1rem;
+  outline: none;
+  border: 1px solid #555;
+}
+
+body.dark-mode input::placeholder {
+  color: #999;
+}
+
+body.dark-mode button[type="submit"] {
+  background: #4db6ac;
+  color: #121212;
+  font-weight: bold;
+}
+
+body.dark-mode button[type="submit"]:hover {
+  box-shadow: 0 0 20px rgba(77, 182, 172, 0.7);
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
+body.dark-mode .error {
+  color: #ff7373;
+}
+
+body.dark-mode .footer-text {
+  color: #aaa;
+}
