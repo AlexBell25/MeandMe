@@ -93,6 +93,33 @@
       color: #333;
     }
 
+    .star-rating {
+      direction: rtl;
+      display: inline-block;
+      font-size: 20px;
+    }
+
+    .star-rating input {
+      display: none;
+    }
+
+    .star-rating label {
+      color: #ccc;
+      cursor: pointer;
+    }
+
+    .star-rating input:checked ~ label,
+    .star-rating label:hover,
+    .star-rating label:hover ~ label {
+      color: gold;
+    }
+
+    .rating-value {
+      font-size: 0.85rem;
+      color: #444;
+      margin-top: 5px;
+    }
+
     @media (max-width: 500px) {
       .mentors-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -131,14 +158,29 @@
 
     const mentorList = document.getElementById('mentorList');
 
-    mentors.forEach(mentor => {
+    mentors.forEach((mentor, index) => {
       const card = document.createElement('div');
       card.className = 'mentor-card';
       card.innerHTML = `
         <img src="${mentor.img}" alt="${mentor.name}" />
         <div class="name">${mentor.name}</div>
+        <div class="star-rating">
+          ${[5, 4, 3, 2, 1].map(star => `
+            <input type="radio" id="star${star}-${index}" name="rating-${index}" value="${star}">
+            <label for="star${star}-${index}">&#9733;</label>
+          `).join('')}
+        </div>
+        <div class="rating-value" id="rating-value-${index}">Your rating: 0</div>
       `;
       mentorList.appendChild(card);
+
+      const inputs = card.querySelectorAll(`input[name="rating-${index}"]`);
+      inputs.forEach(input => {
+        input.addEventListener('change', () => {
+          const ratingValue = card.querySelector(`#rating-value-${index}`);
+          ratingValue.textContent = `Your rating: ${input.value}`;
+        });
+      });
     });
   </script>
 
