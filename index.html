@@ -126,7 +126,7 @@
       <i class="fas fa-comment"></i>
       <span>Messages</span>
     </div>
-    <div id="tabCalendar" class="nav-tab" data-tab="2" onclick="selectStarTab(2)">
+    <div id="tabCalendar" class="nav-tab" data-tab="2" onclick="calendarsStarTab()">
       <i class="fas fa-calendar"></i>
       <span>Calendar</span>
     </div>
@@ -168,6 +168,11 @@
     function connectionsStarTab() {
       const mentor = localStorage.getItem("loggedInMentor");
       window.location.href = mentor ? "mentor connections.html" : "connections.html";
+    }
+
+        function calendarsStarTab() {
+      const mentor = localStorage.getItem("loggedInMentor");
+      window.location.href = "calendar.html";
     }
 
     function mentorTabClick() {
