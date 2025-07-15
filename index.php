@@ -216,7 +216,7 @@
 
     function userTabClick() {
       const user = localStorage.getItem("loggedInUser");
-      user ? logoutUser() : window.location.href = "login.html";
+      user ? logoutUser() : window.location.href = "login.php";
     }
 
     function logoutUser() {

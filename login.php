@@ -17,7 +17,7 @@
   <div class="signup-page">
     <div class="signup-form-container">
       <h2>Me&Me</h2>
-      <form onsubmit="return handleLogin(event)">
+      <form action="login.inc.php" method = "post">
           
 
           <label for="user"></i> Display name: </label>
