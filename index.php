@@ -184,10 +184,7 @@ $username = $_SESSION["username"] ?? null;
   </div>
 
   <script>
-    const phpUser = <?php echo json_encode($username); ?>;
-    if (phpUser) {
-      localStorage.setItem("loggedInUser", phpUser);
-    }
+
     function selectStarTab(tabNumber) {
       const starTabs = document.querySelectorAll(".nav-tab[data-tab]");
       starTabs.forEach((tab) => {
@@ -219,7 +216,7 @@ $username = $_SESSION["username"] ?? null;
 
     function mentorTabClick() {
       const mentor = localStorage.getItem("loggedInMentor");
-      window.location.href = mentor ? "profile.html" : "login mentor.html";
+      window.location.href = mentor ? "profile.html" : "login mentor.php";
     }
 
     function userTabClick() {

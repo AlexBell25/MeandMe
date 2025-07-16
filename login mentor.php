@@ -1,3 +1,7 @@
+<?php
+session_start();
+$username = $_SESSION["username"] ?? null;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +29,7 @@
           <label for="password"></i> Password:</label>
           <input type="password" id="password" name="password" required />
 
-          <button type="submit">Mentor Sign In</button>
+          <button type="submit" name = "submit">Mentor Sign In</button>
           <div class="error" id="errorMessage" style="color: rgb(105, 21, 21); margin-top: 10px;"></div>
       </form>
       <p style="margin-top: 1rem; color: #ccc;">Don't have an account? <a href="signup mentor.html" style="color: #6cf;">Sign Up</a></p>
@@ -34,6 +38,10 @@
   </div>
 
   <script>
+        const phpUser = <?php echo json_encode($username); ?>;
+    if (phpUser) {
+      localStorage.setItem("loggedInMentor", phpUser);
+    }
     function handleLogin(event) {
       event.preventDefault();
 

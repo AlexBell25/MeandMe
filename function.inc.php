@@ -120,3 +120,26 @@ function loginUser($conn, $username, $pwd){
         exit();
     }
 }
+function loginmentor($conn, $username, $pwd){
+    $userExists = userexists($conn, $username, $username);
+
+    if ($userExists === false){
+        header("location: /login mentor.php?error=wronglogin");
+        exit();
+    }
+
+    $pwdHashed = $userExists["pass"];
+    $checkpwd = password_verify($pwd, $pwdHashed);
+
+    if ($checkpwd === false){
+        header("location:login.php?error=wronglogin");
+        exit();
+    }
+    else if($checkpwd === true){
+        session_start();
+        $_SESSION["userid"] =  $userExists["usersId"];
+        $_SESSION["username"] =  $userExists["username"];
+        header("location: /index.php");
+        exit();
+    }
+}
