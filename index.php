@@ -1,6 +1,11 @@
 <?php
 session_start();
-$username = $_SESSION["username"] ?? null;
+if (!isset($_SESSION["username"])) {
+    header("Location: login.php");
+    exit();
+}
+$username = $_SESSION["username"];
+// Show logged-in page
 ?>
 <!DOCTYPE html>
 <html lang="en">

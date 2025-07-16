@@ -1,4 +1,6 @@
 <?php
+session_start(); // start session to set variables
+
 
 if (isset($_POST["submit"])){
     $username = $_POST["user"];

@@ -1,7 +1,6 @@
 <?php
-session_start();
-$username = $_SESSION["username"] ?? null;
-?>
+    $username = $_SESSION["username"] ?? null;
+      ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,10 +38,15 @@ $username = $_SESSION["username"] ?? null;
   </div>
 
   <script>
-    const phpUser = <?php echo json_encode($username); ?>;
+        const phpUser = <?php echo json_encode($username); ?>;
     if (phpUser) {
       localStorage.setItem("loggedInUser", phpUser);
     }
+        function goBack(url) {
+    window.location.href = url;
+}
+
+    
     function handleLogin(event) {
       event.preventDefault();
 
@@ -57,10 +61,13 @@ $username = $_SESSION["username"] ?? null;
       localStorage.setItem("loggedInUser", username);
       window.location.href = "./index.php";
       return false;
+
+      const phpUser = <?php echo json_encode($username); ?>;
+    if (phpUser) {
+      localStorage.setItem("loggedInUser", phpUser);
     }
-    function goBack(url) {
-    window.location.href = url;
-}
+    }
+
  // Apply theme based on saved preference
   const theme = localStorage.getItem('theme');
   if (theme === 'dark') {
