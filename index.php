@@ -161,7 +161,7 @@
       <i class="fas fa-calendar"></i>
       <span>Calendar</span>
     </div>
-    <div id="tabRecs" class="nav-tab" data-tab="3" onclick="recommendationStarTab()">
+    <div id="tabRecs" class="nav-tab" data-tab="3" onclick="reccomendationsStarTab()">
       <i class="fas fa-user-circle"></i>
       <span>Recommendations</span>
     </div>
@@ -197,12 +197,12 @@
       window.location.href = "settings.html";
     }
         function reccomendationsStarTab() {
-      window.location.href = "recomendations.html";
+      window.location.href = "recommendationpage.html";
     }
 
     function connectionsStarTab() {
       const mentor = localStorage.getItem("loggedInMentor");
-      window.location.href = mentor ? "mentor connections.html" : "connections.html";
+      window.location.href = "connections.html";
     }
 
     function calendarsStarTab() {
@@ -211,12 +211,12 @@
 
     function mentorTabClick() {
       const mentor = localStorage.getItem("loggedInMentor");
-      window.location.href = mentor ? "mentor-profile.html" : "login mentor.html";
+      window.location.href = mentor ? "profile.html" : "login mentor.html";
     }
 
     function userTabClick() {
       const user = localStorage.getItem("loggedInUser");
-      user ? logoutUser() : window.location.href = "login.html";
+      user ? logoutUser() : window.location.href = "login.php";
     }
 
     function logoutUser() {
@@ -260,7 +260,7 @@
       } else if (loggedInMentor && !loggedInUser) {
         mentorLabel.textContent = "Mentor Profile";
         mentorTab.querySelector("i").className = "fas fa-user-tie";
-        mentorTab.onclick = () => window.location.href = "mentor-profile.html";
+        mentorTab.onclick = () => window.location.href = "profile.html";
 
         userLabel.textContent = "Logout";
         userTab.querySelector("i").className = "fas fa-sign-out-alt";
