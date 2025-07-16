@@ -20,7 +20,7 @@
   <div class="signup-page">
     <div class="signup-form-container">
       <h2>Me&Me</h2>
-      <form action="login.inc.php" method = "post">
+      <form id = "loginForm">
           
 
           <label for="user"></i> Display name: </label>
@@ -37,45 +37,62 @@
 
   </div>
 
-  <script>
-        const phpUser = <?php echo json_encode($username); ?>;
-    if (phpUser) {
-      localStorage.setItem("loggedInUser", phpUser);
-    }
-        function goBack(url) {
-    window.location.href = url;
+<script>
+document.getElementById("loginForm").addEventListener("submit", handleLogin);
+
+function handleLogin(event) {
+  event.preventDefault();
+
+  const username = document.getElementById("user").value.trim();
+  const password = document.getElementById("password").value;
+
+  if (!username) {
+    document.getElementById("errorMessage").textContent = "Please enter a username!";
+    return;
+  }
+
+  // Store in localStorage
+  localStorage.setItem("loggedInUser", username);
+
+  // Create and submit a form manually
+  const form = document.createElement('form');
+  form.method = 'POST';
+  form.action = 'login.inc.php';
+
+  const usernameField = document.createElement('input');
+  usernameField.type = 'hidden';
+  usernameField.name = 'username';
+  usernameField.value = username;
+  form.appendChild(usernameField);
+
+  const passwordField = document.createElement('input');
+  passwordField.type = 'hidden';
+  passwordField.name = 'password';
+  passwordField.value = password;
+  form.appendChild(passwordField);
+
+  document.body.appendChild(form);
+  form.submit();
 }
 
-    
-    function handleLogin(event) {
-      event.preventDefault();
+// Optional: Set localStorage from PHP session
+const phpUser = <?php echo json_encode($username); ?>;
+if (phpUser) {
+  localStorage.setItem("loggedInUser", phpUser);
+}
 
-      const username = document.getElementById("user").value.trim();
+// Apply theme
+const theme = localStorage.getItem('theme');
+if (theme === 'dark') {
+  document.body.classList.add('dark-mode');
+} else {
+  document.body.classList.remove('dark-mode');
+}
+function goBack(url) {
+    window.location.href = url;
+}
+</script>
 
-      if (!username) {
-        document.getElementById("errorMessage").textContent = "Please enter a username!";
-        return false;
-      }
-
-      // Simply set loggedInUser and redirect, no validation
-      localStorage.setItem("loggedInUser", username);
-      window.location.href = "./index.php";
-      return false;
-
-      const phpUser = <?php echo json_encode($username); ?>;
-    if (phpUser) {
-      localStorage.setItem("loggedInUser", phpUser);
-    }
-    }
-
- // Apply theme based on saved preference
-  const theme = localStorage.getItem('theme');
-  if (theme === 'dark') {
-    document.body.classList.add('dark-mode');
-  } else {
-    document.body.classList.remove('dark-mode');
-  }
-  </script>
 <img src="Logo.png" style = "position:absolute; top:0px ; right:0px" height="50px" width = "70px">
 <button onclick="goBack('index.php')" style="position:absolute; top:10px; left:10px;">🔙 Back</button>
 </body>

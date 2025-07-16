@@ -2,8 +2,8 @@
 session_start(); // start session to set variables
 
 
-if (isset($_POST["submit"])){
-    $username = $_POST["user"];
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $username = $_POST["username"];
     $pwd= $_POST["password"];
 
     require_once 'dbh.inc.php';
@@ -13,6 +13,7 @@ if (isset($_POST["submit"])){
         header("location: /login.php?error=emptyinput");
         exit();
     }
+
 
     loginUser($conn, $username, $pwd);
     

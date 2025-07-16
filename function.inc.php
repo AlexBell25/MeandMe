@@ -97,34 +97,35 @@ function emptyInputlogin($name, $pwd){
     return $result;
 }
 
-function loginUser($conn, $username, $pwd){
+function loginUser($conn, $username, $pwd) {
     $userExists = userexists($conn, $username, $username);
 
-    if ($userExists === false){
-        header("location: /login.php?error=wronglogin");
+    if ($userExists === false) {
+        header("Location: /login.php?error=wronglogin");
         exit();
     }
 
     if ($userExists["role"] !== "mentee") {
-        header("location: /login mentor.php?error=notmentee");
+        header("Location: /login mentor.php?error=notmentee");
         exit();
     }
 
     $pwdHashed = $userExists["pass"];
     $checkpwd = password_verify($pwd, $pwdHashed);
 
-    if ($checkpwd === false){
-        header("location:login.php?error=wronglogin");
+    if ($checkpwd === false) {
+        header("Location: /login.php?error=wronglogin");
         exit();
     }
-    else if($checkpwd === true){
-        session_start();
-        $_SESSION["userid"] =  $userExists["usersId"];
-        $_SESSION["username"] =  $userExists["username"];
-        header("location: /index.php");
-        exit();
-    }
+
+    // Successful login
+    session_start();
+    $_SESSION["userid"] = $userExists["usersId"];  // Make sure this matches your DB column name
+    $_SESSION["username"] = $userExists["username"];
+    header("Location: /index.php");
+    exit();
 }
+
 function loginmentor($conn, $username, $pwd){
     $userExists = userexists($conn, $username, $username);
 
@@ -142,7 +143,7 @@ function loginmentor($conn, $username, $pwd){
     $checkpwd = password_verify($pwd, $pwdHashed);
 
     if ($checkpwd === false){
-        header("location:login.php?error=wronglogin");
+        header("location:login mentor.php?error=wronglogin");
         exit();
     }
     else if($checkpwd === true){
@@ -153,3 +154,4 @@ function loginmentor($conn, $username, $pwd){
         exit();
     }
 }
+

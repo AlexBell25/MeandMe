@@ -20,7 +20,7 @@ $username = $_SESSION["username"] ?? null;
   <div class="signup-page">
     <div class="signup-form-container">
       <h2>Me&Me</h2>
-      <form action = "loginmentor.inc.php" method="post">
+      <form id="loginForm">
 
           <label for="user"></i> Display name: </label>
           <input type="text" id="user" name="user" maxlength="10" required />
@@ -37,25 +37,45 @@ $username = $_SESSION["username"] ?? null;
   </div>
 
   <script>
-        const phpUser = <?php echo json_encode($username); ?>;
-    if (phpUser) {
-      localStorage.setItem("loggedInMentor", phpUser);
-    }
-    function handleLogin(event) {
-      event.preventDefault();
+      document.getElementById("loginForm").addEventListener("submit", handleLogin);
 
-      const username = document.getElementById("user").value.trim();
+function handleLogin(event) {
+  event.preventDefault();
 
-      if (!username) {
-        document.getElementById("errorMessage").textContent = "Please enter a username.";
-        return false;
-      }
+  const username = document.getElementById("user").value.trim();
+  const password = document.getElementById("password").value;
+
+  if (!username) {
+    document.getElementById("errorMessage").textContent = "Please enter a username!";
+    return;
+  }
+
+  // Store in localStorage
+  localStorage.setItem("loggedInMentor", username);
+
+  // Create and submit a form manually
+  const form = document.createElement('form');
+  form.method = 'POST';
+  form.action = 'loginmentor.inc.php';
+
+  const usernameField = document.createElement('input');
+  usernameField.type = 'hidden';
+  usernameField.name = 'username';
+  usernameField.value = username;
+  form.appendChild(usernameField);
+
+  const passwordField = document.createElement('input');
+  passwordField.type = 'hidden';
+  passwordField.name = 'password';
+  passwordField.value = password;
+  form.appendChild(passwordField);
+
+  document.body.appendChild(form);
+  form.submit();
+}
 
       // Simply set loggedInUser and redirect, no validation
-      localStorage.setItem("loggedInMentor", username);
-      window.location.href = "./index.php";
-      return false;
-    }
+
     function goBack(url) {
     window.location.href = url;
 }

@@ -189,6 +189,7 @@ $username = $_SESSION["username"];
   </div>
 
   <script>
+ 
 
     function selectStarTab(tabNumber) {
       const starTabs = document.querySelectorAll(".nav-tab[data-tab]");

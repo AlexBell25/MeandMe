@@ -1,7 +1,7 @@
 <?php
 
-if (isset($_POST["submit"])){
-    $username = $_POST["user"];
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $username = $_POST["username"];
     $pwd= $_POST["password"];
 
     require_once 'dbh.inc.php';
