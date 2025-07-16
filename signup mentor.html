@@ -38,10 +38,11 @@
   <div class="signup-page">
     <div class="signup-form-container">
       <h2>Me&Me</h2>
-      <form onsubmit="return handleRegistration(event)">
+      <form action ="signup.inc.php" method="post">
 
           <label for="user"> Display Name:</label>
           <input type="text" id="user" name="user" maxlength="10" required />
+          <input type="hidden" name="role" value="mentor" />
 
           <label for="email"> Email:</label>
           <input type="email" id="email" name="email" required />
@@ -52,7 +53,7 @@
           <label for="confirmPassword"> Confirm:</label>
           <input type="password" id="confirmPassword" name="confirmPassword" required />
 
-          <button type="submit">Register as a mentor</button>
+          <button type="submit" name = "submit">Register as a mentor</button>
           <div class="error" id="errorMessage" style="color: rgb(105, 21, 21); margin-top: 10px;"></div>
       </form>
       <p style="margin-top: 1rem; color: #ccc;">Already have an account? <a href="login mentor.php" style="color: #6cf;">Sign in</a></p>

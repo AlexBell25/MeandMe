@@ -8,17 +8,17 @@ if (isset($_POST["submit"])){
     require_once 'function.inc.php';
 
     if (emptyInputlogin($username, $pwd) != false){
-        header("location: /login.php?error=emptyinput");
+        header("location: /login mentor.php?error=emptyinput");
         exit();
     }
 
-    loginUser($conn, $username, $pwd);
+    loginmentor($conn, $username, $pwd);
     
 
 
 
 }
 else{
-    header("location: /login.php");
+    header("location: /login mentor.php");
     exit();
 }

@@ -21,7 +21,7 @@ $username = $_SESSION["username"] ?? null;
   <div class="signup-page">
     <div class="signup-form-container">
       <h2>Me&Me</h2>
-      <form action = "login.inc.php" method="post">
+      <form action = "loginmentor.inc.php" method="post">
 
           <label for="user"></i> Display name: </label>
           <input type="text" id="user" name="user" maxlength="10" required />

@@ -33,7 +33,7 @@ $username = $_SESSION["username"] ?? null;
           <button type="submit" name = "submit">Sign In</button>
           <div class="error" id="errorMessage" style="color: rgb(133, 15, 15); margin-top: 10px;"></div>
       </form>
-      <p style="margin-top: 1rem; color: #ccc;">Don't have an account? <a href="signup.html" style="color: #6cf;">Sign Up</a></p>
+      <p style="margin-top: 1rem; color: #ccc;">Don't have an account? <a href="signup.php" style="color: #6cf;">Sign Up</a></p>
     </div>
 
   </div>

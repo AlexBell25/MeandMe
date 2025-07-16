@@ -42,6 +42,7 @@
 
           <label for="user"> Username:</label>
           <input type="text" id="user" name="user" maxlength="10" required />
+          <input type="hidden" name="role" value="mentee" />
 
           <label for="email"> Email:</label>
           <input type="email" id="email" name="email" required />
@@ -55,7 +56,7 @@
           <button type="submit" name = "submit">Register</button>
           <div class="error" id="errorMessage" style="color: rgb(105, 21, 21); margin-top: 10px;"></div>
       </form>
-      <p style="margin-top: 1rem; color: #ccc;">Already have an account? <a href="login.html" style="color: #6cf;">Sign in</a></p>
+      <p style="margin-top: 1rem; color: #ccc;">Already have an account? <a href="login.php" style="color: #6cf;">Sign in</a></p>
     </div>
 
     
@@ -92,11 +93,11 @@ function handleRegistration(event) {
 
 
     function goToLogin() {
-      window.location.href = "login.html"; // Create this page if needed
+      window.location.href = "login.php"; // Create this page if needed
     }
 
     function goToSignup() {
-      window.location.href = "signup.html"; // Optional
+      window.location.href = "signup.php"; // Optional
     }
 
     function goToProfile() {
