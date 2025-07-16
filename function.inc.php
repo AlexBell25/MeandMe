@@ -82,7 +82,7 @@ $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
  mysqli_stmt_bind_param($stmt, "sss", $name, $email, $hashedPwd);
  mysqli_stmt_execute($stmt);
  mysqli_stmt_close($stmt);
- header("Location: /index.html?error=none");
+ header("Location: /index.php?error=none");
  exit();
 }
 

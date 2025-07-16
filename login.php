@@ -1,3 +1,7 @@
+<?php
+session_start();
+$username = $_SESSION["username"] ?? null;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +30,7 @@
           <label for="password"></i> Password:</label>
           <input type="password" id="password" name="password" required />
 
-          <button type="submit">Sign In</button>
+          <button type="submit" name = "submit">Sign In</button>
           <div class="error" id="errorMessage" style="color: rgb(133, 15, 15); margin-top: 10px;"></div>
       </form>
       <p style="margin-top: 1rem; color: #ccc;">Don't have an account? <a href="signup.html" style="color: #6cf;">Sign Up</a></p>
@@ -35,6 +39,10 @@
   </div>
 
   <script>
+    const phpUser = <?php echo json_encode($username); ?>;
+    if (phpUser) {
+      localStorage.setItem("loggedInUser", phpUser);
+    }
     function handleLogin(event) {
       event.preventDefault();
 
@@ -47,7 +55,7 @@
 
       // Simply set loggedInUser and redirect, no validation
       localStorage.setItem("loggedInUser", username);
-      window.location.href = "./index.html";
+      window.location.href = "./index.php";
       return false;
     }
     function goBack(url) {
@@ -62,6 +70,6 @@
   }
   </script>
 <img src="Logo.png" style = "position:absolute; top:0px ; right:0px" height="50px" width = "70px">
-<button onclick="goBack('index.html')" style="position:absolute; top:10px; left:10px;">🔙 Back</button>
+<button onclick="goBack('index.php')" style="position:absolute; top:10px; left:10px;">🔙 Back</button>
 </body>
 </html>

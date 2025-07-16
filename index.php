@@ -1,3 +1,7 @@
+<?php
+session_start();
+$username = $_SESSION["username"] ?? null;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -180,6 +184,10 @@
   </div>
 
   <script>
+    const phpUser = <?php echo json_encode($username); ?>;
+    if (phpUser) {
+      localStorage.setItem("loggedInUser", phpUser);
+    }
     function selectStarTab(tabNumber) {
       const starTabs = document.querySelectorAll(".nav-tab[data-tab]");
       starTabs.forEach((tab) => {
