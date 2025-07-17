@@ -188,14 +188,9 @@ body.dark-mode .nav-item span {
 
     <div class="form-group">
       <label>Username</label>
-      <input type="text" id="usernameInput" readonly />
+      <input type="text" id="user" readonly />
     </div>
 
-    <div class="form-group">
-      <label>Password</label>
-      <input type="password" id="passwordInput" readonly />
-      <button type="button" class="reveal-btn" id="togglePasswordBtn" aria-label="Reveal password">Show</button>
-    </div>
   </div>
 
   <div class="bottom-nav">
@@ -208,8 +203,8 @@ body.dark-mode .nav-item span {
 <script>
   const profilePic = document.getElementById('profilePic');
   const picInput = document.getElementById('picInput');
-  const usernameInput = document.getElementById('usernameInput');
-  const passwordInput = document.getElementById('passwordInput');
+const userInput = document.getElementById('user');
+const passwordInput = document.getElementById('password');
   const togglePasswordBtn = document.getElementById('togglePasswordBtn');
 
   // Load profile data on page load
@@ -221,8 +216,8 @@ body.dark-mode .nav-item span {
     }
 
     // Load username and password from localStorage with fallback defaults
-    usernameInput.value = localStorage.getItem('profileUser') || 'username123';
-    passwordInput.value = localStorage.getItem('profilePassword') || 'password123';
+    userInput.value = localStorage.getItem('username') || 'Guest';
+passwordInput.value = localStorage.getItem('password') ;
   });
 
   // Profile picture update handler
